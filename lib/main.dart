@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm_riverpod/screens/home/components/trending_movies.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'views/counter_view.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,9 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter MVVM with Riverpod',
-      home: CounterView(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const TrendingMovies(),
     );
   }
 }
