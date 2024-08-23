@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/data/providers/trending_movies_provider.dart';
+import 'package:flutter_mvvm_riverpod/screens/home/components/trending/trending_week_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class TrendingMovies extends ConsumerWidget {
-  const TrendingMovies({super.key});
+class TrendingWeek extends ConsumerWidget {
+  const TrendingWeek({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final trendingMoviesAsyncValue = ref.watch(trendingMoviesProvider);
+    final trendingWeekAsyncValue = ref.watch(trendingWeekListProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Trending Movies'),
       ),
-      body: trendingMoviesAsyncValue.when(
+      body: trendingWeekAsyncValue.when(
         data: (data) {
-          if (data.results.isEmpty) {
+          if (data.isEmpty) {
             return const Center(child: Text('No movies available.'));
           }
 
           return ListView.builder(
-            itemCount: data.results.length > 10 ? 10 : data.results.length,
+            itemCount: data.length > 10 ? 10 : data.length,
             itemBuilder: (context, index) {
-              final movie = data.results[index];
+              final movie = data[index];
               return ListTile(
                 leading: CachedNetworkImage(
                   imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
@@ -51,7 +51,7 @@ class TrendingMovies extends ConsumerWidget {
                   // Refresh the provider to try to fetch data again
                   debugPrint(error.toString());
                   // ignore: unused_result
-                  ref.refresh(trendingMoviesProvider);
+                  ref.refresh(trendingWeekListProvider);
                 },
                 child: const Text('Retry'),
               ),

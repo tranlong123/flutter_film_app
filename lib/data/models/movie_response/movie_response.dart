@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
