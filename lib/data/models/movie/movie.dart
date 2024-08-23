@@ -7,22 +7,21 @@ part 'movie.g.dart';
 class Movie with _$Movie {
   const factory Movie({
     required bool adult,
-    required String backdropPath,
-    required String overview,
-    required List<int> genreIds,
-    required String originalLanguage,
-    required String originalTitle,
     required int id,
     required bool video,
-    required double voteAverage,
     required String title,
-    required int voteCount,
-    required String releaseDate,
-    String? posterPath,  // This should be nullable if it's optional
+    required String overview,
     required double popularity,
-    required String mediaType,
+    @JsonKey(name: 'backdrop_path') required String backdropPath,
+    @JsonKey(name: 'genre_ids') required List<int> genreIds,
+    @JsonKey(name: 'original_language') required String originalLanguage,
+    @JsonKey(name: 'original_title') required String originalTitle,
+    @JsonKey(name: 'vote_average') required double voteAverage,
+    @JsonKey(name: 'vote_count') required int voteCount,
+    @JsonKey(name: 'release_date') required String releaseDate,
+    @JsonKey(name: 'poster_path') required String posterPath,
+    @JsonKey(name: 'media_type') required String mediaType,
   }) = _Movie;
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 }
-

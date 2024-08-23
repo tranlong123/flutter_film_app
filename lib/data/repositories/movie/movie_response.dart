@@ -1,27 +1,18 @@
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class MovieResponse {
-  final int page;
-  final List<Movie> results;
-  final int totalPages;
-  final int totalResults;
+part 'movie_response.freezed.dart';
+part 'movie_response.g.dart';
 
-  MovieResponse({
-    required this.page,
-    required this.results,
-    required this.totalPages,
-    required this.totalResults,
-  });
+@freezed
+class MovieResponse with _$MovieResponse {
+  const factory MovieResponse({
+    required int page,
+    required List<Movie> results,
+    @JsonKey(name: 'total_pages') required int totalPages,
+    @JsonKey(name: 'total_results') required int totalResults,
+  }) = _MovieResponse;
 
-  factory MovieResponse.fromJson(Map<String, dynamic> json) {
-    var list = json['results'] as List;
-    List<Movie> resultsList = list.map((i) => Movie.fromJson(i)).toList();
-
-    return MovieResponse(
-      page: json['page'],
-      results: resultsList,
-      totalPages: json['total_pages'],
-      totalResults: json['total_results'],
-    );
-  }
+  factory MovieResponse.fromJson(Map<String, dynamic> json) =>
+      _$MovieResponseFromJson(json);
 }
