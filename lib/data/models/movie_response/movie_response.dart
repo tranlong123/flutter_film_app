@@ -1,5 +1,3 @@
-// ignore_for_file: invalid_annotation_target
-
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -11,8 +9,8 @@ class MovieResponse with _$MovieResponse {
   const factory MovieResponse({
     required int page,
     required List<Movie> results,
-    @JsonKey(name: 'total_pages') required int totalPages,
-    @JsonKey(name: 'total_results') required int totalResults,
+    required int totalPages,
+    required int totalResults,
   }) = _MovieResponse;
 
   factory MovieResponse.fromJson(Map<String, dynamic> json) =>
