@@ -33,20 +33,36 @@ class _TrendingWeekState extends ConsumerState<TrendingWeek> {
             return const Center(child: Text('No movies available.'));
           }
 
-          return ListView.builder(
-            itemCount: data.length > 10 ? 10 : data.length,
-            itemBuilder: (context, index) {
-              final movie = data[index];
-              return ListTile(
-                leading: CachedNetworkImage(
-                  imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                  placeholder: (context, url) => const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+          return Column(
+            children: [
+              SizedBox(
+                height: 600,
+                child: ListView.builder(
+                  itemCount: data.length > 10 ? 10 : data.length,
+                  itemBuilder: (context, index) {
+                    final movie = data[index];
+                    return ListTile(
+                      leading: CachedNetworkImage(
+                        imageUrl:
+                            'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
+                      title: Text(movie.title),
+                      subtitle: Text(movie.releaseDate),
+                    );
+                  },
                 ),
-                title: Text(movie.title),
-                subtitle: Text(movie.releaseDate),
-              );
-            },
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  ref.read(trendingWeekViewModelProvider.notifier).refresh();
+                },
+                child: const Text('Retry'),
+              ),
+            ],
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),

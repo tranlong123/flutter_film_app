@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/screens/home/components/trending/trending_week.dart';
+import 'package:flutter_mvvm_riverpod/screens/home/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TrendingWeek(),
+      home: const HomeScreen(),
     );
   }
 }

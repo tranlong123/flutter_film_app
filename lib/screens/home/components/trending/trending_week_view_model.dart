@@ -18,7 +18,6 @@ class TrendingWeekViewModel extends StateNotifier<TrendingWeekState> {
       state = state.copyWith(movies: AsyncValue.error(e, stack));
     }
   }
-
   void refresh() {
     _fetchTrendingMovies();
   }
