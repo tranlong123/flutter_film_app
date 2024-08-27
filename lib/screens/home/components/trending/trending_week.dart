@@ -1,20 +1,33 @@
+// trending_week.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/screens/home/components/trending/trending_week_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class TrendingWeek extends ConsumerWidget {
+class TrendingWeek extends ConsumerStatefulWidget {
   const TrendingWeek({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final trendingWeekAsyncValue = ref.watch(trendingWeekListProvider);
+  ConsumerState<TrendingWeek> createState() => _TrendingWeekState();
+}
+
+class _TrendingWeekState extends ConsumerState<TrendingWeek> {
+  @override
+  void initState() {
+    super.initState();
+    // Fetch trending movies when the widget is first created
+    ref.read(trendingWeekViewModelProvider.notifier).refresh();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final trendingWeekState = ref.watch(trendingWeekViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Trending Movies'),
       ),
-      body: trendingWeekAsyncValue.when(
+      body: trendingWeekState.movies.when(
         data: (data) {
           if (data.isEmpty) {
             return const Center(child: Text('No movies available.'));
@@ -48,10 +61,8 @@ class TrendingWeek extends ConsumerWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // Refresh the provider to try to fetch data again
                   debugPrint(error.toString());
-                  // ignore: unused_result
-                  ref.refresh(trendingWeekListProvider);
+                  ref.read(trendingWeekViewModelProvider.notifier).refresh();
                 },
                 child: const Text('Retry'),
               ),
