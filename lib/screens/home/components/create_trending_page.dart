@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
@@ -37,7 +38,6 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
 
   @override
   Widget build(BuildContext context) {
-    AppDimensions.init(context);
     return Column(
       children: [
         SizedBox(
@@ -49,15 +49,69 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
             itemBuilder: (context, index) {
               final movie = widget.movies[index];
               final isCurrentPage = index == _currentPage;
-              return _buildPageItem(movie: movie, isCurrentPage: isCurrentPage);
+              return _buildPageItem(
+                  movie: movie, isCurrentPage: isCurrentPage, index: index);
             },
           ),
         ),
         _buildPageIndicator(
           pageController: _pageController,
-          itemCount: widget.movies.length,
+          itemCount: 6,
         ),
       ],
+    );
+  }
+
+  Future<void> pageItemOnTap({required int index}) async {
+    setState(() {
+      _currentPage = index;
+    });
+    await _pageController.animateToPage(
+      _currentPage,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+    // Navigator.push(
+    // context,
+    // MaterialPageRoute(
+    //   builder: (context) => MovieScreen(movie: widget.movie),
+    // ),
+    // );
+  }
+
+  Widget _buildPageItem(
+      {required Movie movie, required bool isCurrentPage, required int index}) {
+    return Center(
+      child: GestureDetector(
+        onTap: () => pageItemOnTap(index: index),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+          width: isCurrentPage
+              ? AppDimensions.isCurrentPageWidth
+              : AppDimensions.pageViewWidth,
+          height: isCurrentPage
+              ? AppDimensions.isCurrentPageHeight
+              : AppDimensions.pageViewHeight,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: black.withOpacity(0.25),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CachedNetworkImage(
+              imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -83,48 +137,6 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildPageItem({required Movie movie, required bool isCurrentPage}) {
-    return Center(
-      child: GestureDetector(
-        onTap: () {
-          // Navigator.push(
-          // context,
-          // MaterialPageRoute(
-          //   builder: (context) => MovieScreen(movie: widget.movie),
-          // ),
-          // );
-        },
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeInOut,
-          width: isCurrentPage
-              ? AppDimensions.isCurrentPageWidth
-              : AppDimensions.pageViewWidth,
-          height: isCurrentPage
-              ? AppDimensions.isCurrentPageHeight
-              : AppDimensions.pageViewHeight,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: black.withOpacity(0.25),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              movie.posterPath,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

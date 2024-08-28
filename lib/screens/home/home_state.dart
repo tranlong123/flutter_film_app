@@ -9,6 +9,7 @@ class HomeState with _$HomeState {
   const factory HomeState({
     @Default([]) List<Movie> trendingWeekList,
     @Default([]) List<Movie> listOfDay,
+    @Default(false) bool isLoading,
   }) = _HomeState;
 
   const HomeState._();

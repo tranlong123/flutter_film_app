@@ -1,6 +1,6 @@
 import 'package:flutter_mvvm_riverpod/data/models/movie_response/movie_response.dart';
 import 'package:flutter_mvvm_riverpod/data/providers/trending_week_providers.dart';
-import 'package:flutter_mvvm_riverpod/data/services/api/trending/api_trending_week_client.dart';
+import 'package:flutter_mvvm_riverpod/data/services/api/trending_week/api_trending_week_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final trendingWeekRepositoryProvider = Provider<TrendingWeekRepository>((ref) {

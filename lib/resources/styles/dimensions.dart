@@ -4,6 +4,7 @@ class AppDimensions {
   static late double screenHeight;
   static late double screenWidth;
   static late double aspectRatio;
+
   //screen size
   static void init(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -27,7 +28,7 @@ class AppDimensions {
 
   static double get sizedBox4 => screenWidth * 4 / 340;
 
-  static double get sizedBox5 => screenWidth * 5 / 340;
+  static double get sizedBox10 => screenWidth * 10 / 340;
   static double get sizedBox9 => screenWidth * 9 / 340;
   static double get dotSize => screenWidth * 10 / 340;
   static double get sizedBox11 => screenWidth * 11 / 340;
@@ -39,7 +40,7 @@ class AppDimensions {
   static double get sizedBox17 => screenWidth * 17 / 340;
   static double get sizedBox18 => screenWidth * 18 / 340;
   static double get sizedBox19 => screenWidth * 19 / 340;
-
+  static double get sizedBox22 => screenWidth * 22 / 340;
   static double get sizedBox23 => screenWidth * 23 / 340;
 
   static double get sizedBox28 => screenWidth * 28 / 340;
@@ -62,11 +63,13 @@ class AppDimensions {
   static double get sizedBox378 => screenWidth * 378 / 340;
 
   static double get heartSize => screenWidth * 18 / 340;
-  static double get starSize => screenWidth * 18 / 340;
-  static double get searchIconSize => screenWidth * 25 / 340;
+  static double get starSize => screenWidth * 18 / 340;  
+  static double get searchIconSizeWidth => screenWidth * 19.3 / 340;
+  static double get searchIconSizeHeight => screenWidth * 25 / 340;
   static double get gridItemWidth => screenWidth * 100 / 340;
   static double get gridItemHeight => screenWidth * 160 / 340;
   static double get listOfDaySize => screenWidth * 188 / 340;
+  static double get listOfDayWidth => screenWidth * 328/ 340;
   static double get pageViewWidth => screenWidth * 178 / 340;
   static double get pageViewHeight => screenWidth * 279 / 340;
   static double get isCurrentPageWidth => screenWidth * 231 / 340;
