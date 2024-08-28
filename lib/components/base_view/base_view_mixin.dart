@@ -11,13 +11,11 @@ mixin BaseViewMixin {
 
   Color? get backgroundColor => bgColor;
 
-  String get screenName;
-
   Future<bool> onWillPop() async => true;
 
   Widget buildBody(BuildContext context);
 
-  PreferredSizeWidget? buildAppBar(BuildContext context);
+  PreferredSizeWidget? buildAppBar(BuildContext context) => null;
 
   Widget? buildBottomNavigatorBar(BuildContext context) => null;
 

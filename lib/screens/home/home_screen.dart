@@ -1,98 +1,57 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm_riverpod/components/base_view/base_view.dart';
 import 'package:flutter_mvvm_riverpod/data/repositories/trending_week_repository.dart';
-import 'package:flutter_mvvm_riverpod/screens/home/components/trending/trending_week_view_model.dart';
 import 'package:flutter_mvvm_riverpod/screens/home/home_state.dart';
 import 'package:flutter_mvvm_riverpod/screens/home/home_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final _provider = StateNotifierProvider.autoDispose<HomeViewModel, HomeState>((ref) {
+final _provider =
+    StateNotifierProvider.autoDispose<HomeViewModel, HomeState>((ref) {
   return HomeViewModel(
     ref: ref,
-    trendingWeekRepository: ref.read(trendingWeekRepositoryProvider),
+    trendingWeekRepository: ref.watch(trendingWeekRepositoryProvider),
   );
 });
 
-class HomeScreen extends ConsumerStatefulWidget {
+class HomeScreen extends BaseView {
   const HomeScreen({super.key});
 
   @override
-  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+  BaseViewState<HomeScreen, HomeViewModel> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
   @override
-  void initState() {
-    super.initState();
-    // Fetch trending movies when the widget is first created
-    ref.read(trendingWeekViewModelProvider.notifier).refresh();
+  Widget buildBody(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: 100,
+          width: 100,
+          color: Colors.black,
+          child: GestureDetector(
+            child: const Text('data'),
+            onTap: () => {
+              // ignore: avoid_print
+              print(ref.read(_provider)),
+              // ignore: avoid_print
+              print('/////////////////'),
+              // ignore: avoid_print
+              print(state)
+            },
+          ),
+        ),
+      ],
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
-    final trendingWeekState = ref.watch(trendingWeekViewModelProvider);
-
-    return Scaffold(
-      body: trendingWeekState.movies.when(
-        data: (data) {
-          if (data.isEmpty) {
-            return const Center(child: Text('No movies available.'));
-          }
-
-          return Column(
-            children: [
-              SizedBox(
-                height: 600,
-                child: ListView.builder(
-                  itemCount: data.length > 10 ? 10 : data.length,
-                  itemBuilder: (context, index) {
-                    final movie = data[index];
-                    return ListTile(
-                      leading: CachedNetworkImage(
-                        imageUrl:
-                            'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                      title: Text(movie.title),
-                      subtitle: Text(movie.releaseDate),
-                    );
-                  },
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(trendingWeekViewModelProvider.notifier).refresh();
-                },
-                child: const Text('Retry'),
-              ),
-            ],
-          );
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('An error occurred: ${error.toString()}'),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('Stack trace: ${stack.toString()}'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  debugPrint(error.toString());
-                  ref.read(trendingWeekViewModelProvider.notifier).refresh();
-                },
-                child: const Text('Retry'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  HomeViewModel get viewModel => ref.read(_provider.notifier);
+  HomeState get state => ref.read(_provider);
+  @override
+  void onInitState() {
+    super.onInitState();
+    viewModel.initData();
   }
 
 }
