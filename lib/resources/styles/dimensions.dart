@@ -55,6 +55,7 @@ class AppDimensions {
   static double get sizedBox88 => screenWidth * 88 / 340;
 
   static double get sizedBox116 => screenWidth * 116 / 340;
+  static double get sizedBox111 => screenWidth * 111 / 340;
   static double get sizedBox124 => screenWidth * 124 / 340;
   static double get sizedBox150 => screenWidth * 150 / 340;
   static double get sizedBox155 => screenWidth * 155 / 340;

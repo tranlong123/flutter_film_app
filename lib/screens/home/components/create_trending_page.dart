@@ -21,7 +21,7 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: 0.7)
+    _pageController = PageController(viewportFraction: 0.68)
       ..addListener(() {
         final page = _pageController.page ?? 0;
         setState(() {

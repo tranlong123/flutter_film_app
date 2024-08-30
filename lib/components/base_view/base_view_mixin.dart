@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
+import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
 
 mixin BaseViewMixin {
   bool get resizeToAvoidBottomInset => false;
@@ -20,6 +21,7 @@ mixin BaseViewMixin {
   Widget? buildBottomNavigatorBar(BuildContext context) => null;
 
   Widget buildView(BuildContext context) {
+    AppDimensions.init(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,
@@ -51,6 +53,4 @@ mixin BaseViewMixin {
       bottomNavigationBar: buildBottomNavigatorBar(context),
     );
   }
-
-
 }

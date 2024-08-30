@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/screens/trending_list/trending_list_screen.dart';
 import 'package:flutter_mvvm_riverpod/widget/app_bar_title.dart';
 
 class CreateHomeTop extends StatelessWidget {
@@ -15,12 +16,12 @@ class CreateHomeTop extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => TrendingListScreen(),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TrendingListScreen(time: 'week'),
+                ),
+              );
             },
             child: const AppBarTitle(),
           ),
@@ -33,10 +34,7 @@ class CreateHomeTop extends StatelessWidget {
               'assets/image/search.png',
               fit: BoxFit.cover,
             ),
-          )
-              // Icon(Icons.search, size: AppDimensions.searchIconSize)
-
-              ),
+          )),
         ],
       ),
     );
