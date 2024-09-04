@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_mvvm_riverpod/data/models/movie_colection/movie_colection.dart';
+import 'package:flutter_mvvm_riverpod/data/models/movie_detail/movie_detail.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie_response/movie_response.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -28,13 +30,13 @@ abstract class ApiClient {
   });
 
   @GET("/movie/{id}")
-  Future<MovieResponse> getMovieDetail({
+  Future<MovieDetail> getMovieDetail({
     @Path("id") required int id,
     @Query("api_key") required String apiKey,
   });
 
   @GET("/collection/{id}")
-  Future<MovieResponse> getMovieColection({
+  Future<MovieColection> getMovieColection({
     @Path("id") required int id,
     @Query("api_key") required String apiKey,
   });
