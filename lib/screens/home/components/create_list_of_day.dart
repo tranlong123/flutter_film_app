@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/screens/trending_list/trending_list_screen.dart';
 import 'package:flutter_mvvm_riverpod/widget/movie_item.dart';
 
 class CreateListOfDay extends StatelessWidget {
@@ -13,24 +14,34 @@ class CreateListOfDay extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildListOfDayText(),
+        _buildListOfDayText(context),
         _buildListOfDay(movies: movies),
       ],
     );
   }
 
-  Widget _buildListOfDayText() {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: AppDimensions.sizedBox16, bottom: AppDimensions.sizedBox9),
-      child: Text(
-        'List Of Day',
-        style: TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: AppDimensions.fontSize20,
-          fontWeight: FontWeight.w700,
-          height: 23.44 / 20, // line-height / font-size
-          color: black,
+  Widget _buildListOfDayText(context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TrendingListScreen(time: 'day'),
+          ),
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: AppDimensions.sizedBox16, bottom: AppDimensions.sizedBox9),
+        child: Text(
+          'List Of Day',
+          style: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: AppDimensions.fontSize20,
+            fontWeight: FontWeight.w700,
+            height: 23.44 / 20, // line-height / font-size
+            color: black,
+          ),
         ),
       ),
     );

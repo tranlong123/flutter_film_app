@@ -24,6 +24,7 @@ class HomeScreen extends BaseView {
 }
 
 class _HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
+
   @override
   Future<void> onInitState() async {
     super.onInitState();

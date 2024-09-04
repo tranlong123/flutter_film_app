@@ -13,3 +13,5 @@ const heart2 = Color(0xFFC1AEA6);
 const cateColor = Color(0xFFC4C4C4);
 const watchBt = Color(0xFFD19C4B);
 const downloadBt = Color(0xFF24A640);
+const loading = Color(0xFF4f4f4f);
+const fullyTransparent = Colors.transparent; // Màu hoàn toàn trong suốt

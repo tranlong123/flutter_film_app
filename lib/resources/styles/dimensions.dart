@@ -14,6 +14,8 @@ class AppDimensions {
   }
 
   //fontSize
+  static double get lineHeight => 1.172;
+
   static double get fontSize10 => screenWidth * 10 / 340;
   static double get fontSize13 => screenWidth * 13 / 340;
 
@@ -39,7 +41,7 @@ class AppDimensions {
   static double get sizedBox16 => screenWidth * 16 / 340;
   static double get sizedBox17 => screenWidth * 17 / 340;
   static double get sizedBox18 => screenWidth * 18 / 340;
-  static double get sizedBox19 => screenWidth * 19 / 340;
+  static double get sizedBox20 => screenWidth * 20 / 340;
   static double get sizedBox22 => screenWidth * 22 / 340;
   static double get sizedBox23 => screenWidth * 23 / 340;
 
@@ -51,12 +53,12 @@ class AppDimensions {
   static double get sizedBox56 => screenWidth * 56 / 340;
 
   static double get sizedBox61 => screenWidth * 61 / 340;
-  static double get sizedBox86 => screenWidth * 86 / 340;
+  static double get sizedBox80 => screenHeight * 80 / 734;
+  static double get sizedBox654 => screenHeight * 630 / 734;
   static double get sizedBox88 => screenWidth * 88 / 340;
 
   static double get sizedBox116 => screenWidth * 116 / 340;
   static double get sizedBox111 => screenWidth * 111 / 340;
-  static double get sizedBox124 => screenWidth * 124 / 340;
   static double get sizedBox150 => screenWidth * 150 / 340;
   static double get sizedBox155 => screenWidth * 155 / 340;
   static double get sizedBox188 => screenWidth * 188 / 340;
@@ -80,4 +82,5 @@ class AppDimensions {
   static double get scrollTopIconWidth => screenWidth * 47 / 340;
   static double get scrollTopIconHeight => screenWidth * 23 / 340;
   static double get scrollTopIconLeft => screenWidth * 146 / 340;
+  static double get scrollTopIconTop => screenWidth * 65 / 340;
 }

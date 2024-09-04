@@ -11,6 +11,9 @@ class TrendingListState with _$TrendingListState {
     @Default('week') String time,
     @Default([]) List<Movie> trendingList,
     @Default(false) bool isLoading,
+    @Default(false) bool isLoadingMore,
+    @Default(false) bool isRefreshing,
+    @Default(false) bool showScrollTopButton,
   }) = _TrendingListState;
 
   const TrendingListState._();
