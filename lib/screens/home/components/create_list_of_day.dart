@@ -57,11 +57,18 @@ class CreateListOfDay extends StatelessWidget {
         itemBuilder: (context, index) {
           if (index >= movies.length) return const SizedBox.shrink();
           final movie = movies[index];
-          return MovieItem(movie: movie);
+          return _buildListOfDayItem(movie: movie);
         },
         separatorBuilder: (context, index) =>
             SizedBox(width: AppDimensions.sizedBox14),
       ),
     );
+  }
+
+  Widget _buildListOfDayItem({required Movie movie}) {
+    return MovieItem(
+        movie: movie,
+        width: AppDimensions.gridItemWidth,
+        height: AppDimensions.gridItemHeight);
   }
 }

@@ -1,10 +1,11 @@
 import 'package:flutter/widgets.dart';
 
 class MovieScreen extends StatelessWidget {
-  const MovieScreen({super.key});
+  final int id;
+  const MovieScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('movie'),);
+    return Center(child: Text('id: $id'),);
   }
 }

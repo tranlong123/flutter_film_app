@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/screens/movie/movie_screen.dart';
 import 'package:flutter_mvvm_riverpod/widget/item_overview.dart';
 import 'package:flutter_mvvm_riverpod/widget/item_title.dart';
 import 'package:flutter_mvvm_riverpod/widget/item_vote.dart';
@@ -36,20 +37,20 @@ class CreateTrendingList extends StatelessWidget {
           return SizedBox(
               height: AppDimensions.sizedBox35); 
         }
-        return _buildTrendingItem(movie: movies[index]);
+        return _buildTrendingItem(context,movie: movies[index]);
       },
     );
   }
 
-  Widget _buildTrendingItem({required Movie movie}) {
+  Widget _buildTrendingItem(context,{required Movie movie}) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => MovieScreen(movie: movie),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>  MovieScreen(id: movie.id),
+          ),
+        );
       },
       child: Column(
         children: [
