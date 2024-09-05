@@ -38,7 +38,7 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
       child: Column(
         children: [
           Text(
-            '${widget.id}',
+            '${state.id}',
             style: const TextStyle(color: Colors.white),
           ),
         ],

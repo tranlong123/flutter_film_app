@@ -6,30 +6,30 @@ part 'movie_detail.g.dart';
 @freezed
 class MovieDetail with _$MovieDetail {
   const factory MovieDetail({
-    required bool adult,
-    required String backdropPath,
+    bool? adult,
+    String? backdropPath,
     BelongsToCollection? belongsToCollection,
-    required int budget,
-    required List<Genre> genres,
+    int? budget,
+    List<Genre>? genres,
     String? homepage,
     required int id,
     String? imdbId,
     List<String>? originCountry,
-    required String originalLanguage,
-    required String originalTitle,
-    required String overview,
-    required double popularity,
-    required String posterPath,
+    String? originalLanguage,
+    String? originalTitle,
+    String? overview,
+    double? popularity,
+    String? posterPath,
     List<ProductionCompany>? productionCompanies,
     List<ProductionCountry>? productionCountries,
-    required String releaseDate,
-    required int revenue,
-    required int runtime,
+    String? releaseDate,
+    int? revenue,
+    int? runtime,
     List<SpokenLanguage>? spokenLanguages,
-    required String status,
-    required String tagline,
-    required String title,
-    required bool video,
+    String? status,
+    String? tagline,
+    String? title,
+    bool? video,
     required double voteAverage,
     required int voteCount,
   }) = _MovieDetail;
@@ -58,8 +58,7 @@ class Genre with _$Genre {
     required String name,
   }) = _Genre;
 
-  factory Genre.fromJson(Map<String, dynamic> json) =>
-      _$GenreFromJson(json);
+  factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
 }
 
 @freezed
@@ -78,8 +77,8 @@ class ProductionCompany with _$ProductionCompany {
 @freezed
 class ProductionCountry with _$ProductionCountry {
   const factory ProductionCountry({
-    required String iso31661,
-    required String name,
+    String? iso31661,
+    String? name,
   }) = _ProductionCountry;
 
   factory ProductionCountry.fromJson(Map<String, dynamic> json) =>
@@ -89,9 +88,9 @@ class ProductionCountry with _$ProductionCountry {
 @freezed
 class SpokenLanguage with _$SpokenLanguage {
   const factory SpokenLanguage({
-    required String englishName,
-    required String iso6391,
-    required String name,
+    String? englishName,
+    String? iso6391,
+    String? name,
   }) = _SpokenLanguage;
 
   factory SpokenLanguage.fromJson(Map<String, dynamic> json) =>

@@ -37,7 +37,7 @@ abstract class ApiClient {
 
   @GET("/collection/{id}")
   Future<MovieColection> getMovieColection({
-    @Path("id") required int id,
+    @Path("id") required int id ,
     @Query("api_key") required String apiKey,
   });
 }

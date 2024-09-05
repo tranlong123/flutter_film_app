@@ -10,26 +10,26 @@ final trendingRepositoryProvider = Provider<TrendingRepository>((ref) {
 
 class TrendingRepository {
   final ApiClient _moviesApi;
-
+  final String _apikey = '7ff74d3989927d3ca53bdc4d16facfe9';
   TrendingRepository(this._moviesApi);
 
   Future<MovieResponse> getTrendingMoviesDay(int page) async {
     return await _moviesApi.getTrendingMoviesDay(
-      apiKey: '7ff74d3989927d3ca53bdc4d16facfe9',
+      apiKey: _apikey,
       page: page,
     );
   }
 
   Future<MovieResponse> getTrendingMoviesWeek(int page) async {
     return await _moviesApi.getTrendingMoviesWeek(
-      apiKey: '7ff74d3989927d3ca53bdc4d16facfe9',
+      apiKey: _apikey,
       page: page,
     );
   }
 
   Future<MovieResponse> getTrendingMovies(int page, String timeWindow) async {
     return await _moviesApi.getTrendingMovies(
-      apiKey: '7ff74d3989927d3ca53bdc4d16facfe9',
+      apiKey: _apikey,
       page: page,
       timeWindow: timeWindow,
     );

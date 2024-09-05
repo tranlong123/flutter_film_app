@@ -22,14 +22,24 @@ class MovieViewModel extends BaseViewModel<MovieScreenState> {
 
   Future<void> _fetchMovieDetail() async {
     try {
+      debugPrint('Start fetching movie detail for id: ${state.id}');
       final response = await movieRepository.getMovieDetail(state.id);
+      // Kiểm tra xem từng trường trong response có null không
+      if (response.backdropPath == null) {
+        debugPrint('backdropPath is null');
+      }
+      if (response.posterPath == null) {
+        debugPrint('posterPath is null');
+      }
+      debugPrint('API Response: $response');
       state = state.copyWith(movieDetail: response);
-      debugPrint('fetching movie detail: $response');
-    } catch (e) {
+      debugPrint('State updated with movie detail');
+      state = state.copyWith(isLoading: false);
+    } catch (e, stacktrace) {
+      debugPrint('state id: ${state.id}');
       debugPrint('Error fetching movie detail: $e');
-    } finally {
+      debugPrint('Stacktrace: $stacktrace');
       state = state.copyWith(isLoading: false);
     }
   }
-
 }
