@@ -15,7 +15,7 @@ import 'package:flutter_mvvm_riverpod/widget/start_vote.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _provider =
-    StateNotifierProvider.family<MovieViewModel, MovieScreenState, int>(
+    StateNotifierProvider.autoDispose.family<MovieViewModel, MovieScreenState, int>(
   (ref, id) => MovieViewModel(
     ref: ref,
     movieRepository: ref.watch(movieRepositoryProvider),

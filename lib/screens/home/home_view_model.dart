@@ -37,9 +37,4 @@ class HomeViewModel extends BaseViewModel<HomeState> {
       state = state.copyWith(listOfDay: []); // Xử lý lỗi nếu cần
     }
   }
-
-  void refresh() {
-    _fetchTrendingWeekMovies();
-    _fetchTrendingDayMovies();
-  }
 }

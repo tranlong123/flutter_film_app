@@ -45,7 +45,6 @@ class MovieViewModel extends BaseViewModel<MovieScreenState> {
   Future<void> _fetchMovieDetail() async {
     try {
       final response = await movieRepository.getMovieDetail(state.id);
-      debugPrint('API Response: $response');
       state = state.copyWith(movieDetail: response);
     } catch (e, stacktrace) {
       debugPrint('Error fetching movie detail: $e');
@@ -55,12 +54,10 @@ class MovieViewModel extends BaseViewModel<MovieScreenState> {
 
   Future<void> _fetchInitData() async {
     await _fetchMovieDetail();
-    debugPrint('///////////////////////////////////////////////');
     if (state.movieDetail.belongsToCollection != null) {
       try {
         final response = await movieRepository
             .getMovieColection(state.movieDetail.belongsToCollection!.id);
-        debugPrint('movieRepository: $response');
         state = state.copyWith(mayBeLike: response.parts);
       } catch (e, stacktrace) {
         debugPrint('Error fetching movie detail: $e');
