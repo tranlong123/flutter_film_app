@@ -15,14 +15,13 @@ class HomeViewModel extends BaseViewModel<HomeState> {
 
   Future<void> initData() async {
     await Future.wait([_fetchTrendingWeekMovies(), _fetchTrendingDayMovies()]);
+    state = state.copyWith(isLoading: false);
   }
 
   Future<void> _fetchTrendingWeekMovies() async {
-    state = state.copyWith(isLoading: true);
     try {
       final response = await trendingRepository.getTrendingMoviesWeek(1);
       state = state.copyWith(trendingWeekList: response.results);
-      state = state.copyWith(isLoading: false);
     } catch (e) {
       debugPrint('Error fetching movies: $e');
       state = state.copyWith(trendingWeekList: []); // Xử lý lỗi nếu cần
@@ -30,11 +29,9 @@ class HomeViewModel extends BaseViewModel<HomeState> {
   }
 
   Future<void> _fetchTrendingDayMovies() async {
-    state = state.copyWith(isLoading: true);
     try {
       final response = await trendingRepository.getTrendingMoviesDay(1);
       state = state.copyWith(listOfDay: response.results);
-      state = state.copyWith(isLoading: false);
     } catch (e) {
       debugPrint('Error fetching movies: $e');
       state = state.copyWith(listOfDay: []); // Xử lý lỗi nếu cần

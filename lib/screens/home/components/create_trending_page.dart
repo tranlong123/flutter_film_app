@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
-import 'package:flutter_mvvm_riverpod/widget/movie_item.dart';
+import 'package:flutter_mvvm_riverpod/widget/movie_image.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CreateTrendingPage extends StatefulWidget {
@@ -103,7 +103,7 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
             ],
             borderRadius: BorderRadius.circular(10),
           ),
-          child: MovieItem(movie: movie)
+          child: MovieImage(movie: movie)
         ),
       ),
     );

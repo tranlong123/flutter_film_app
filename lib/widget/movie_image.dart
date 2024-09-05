@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:flutter_mvvm_riverpod/screens/movie/movie_screen.dart';
 
-class MovieItem extends StatelessWidget {
+class MovieImage extends StatelessWidget {
   final double? width;
   final double? height;
   final Movie movie;
 
-  const MovieItem({required this.movie, super.key, this.width, this.height});
+  const MovieImage({required this.movie, super.key, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {

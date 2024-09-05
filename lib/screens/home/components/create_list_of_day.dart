@@ -3,7 +3,7 @@ import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
 import 'package:flutter_mvvm_riverpod/screens/trending_list/trending_list_screen.dart';
-import 'package:flutter_mvvm_riverpod/widget/movie_item.dart';
+import 'package:flutter_mvvm_riverpod/widget/movie_image.dart';
 
 class CreateListOfDay extends StatelessWidget {
   final List<Movie> movies;
@@ -66,7 +66,7 @@ class CreateListOfDay extends StatelessWidget {
   }
 
   Widget _buildListOfDayItem({required Movie movie}) {
-    return MovieItem(
+    return MovieImage(
         movie: movie,
         width: AppDimensions.gridItemWidth,
         height: AppDimensions.gridItemHeight);
