@@ -26,17 +26,14 @@ class StartVote extends StatelessWidget {
   Widget build(BuildContext context) {
     int numberOfStars = _calculateStars(vote);
     AppDimensions.init(context);
-    return Padding(
-      padding: EdgeInsets.only(top: AppDimensions.sizedBox2),
-      child: Row(
-        children: List.generate(5, (index) {
-          return Icon(
-            Icons.star,
-            color: index < numberOfStars ? start : start2,
-            size: AppDimensions.starSize,
-          );
-        }),
-      ),
+    return Row(
+      children: List.generate(5, (index) {
+        return Icon(
+          Icons.star,
+          color: index < numberOfStars ? start : start2,
+          size: AppDimensions.starSize,
+        );
+      }),
     );
   }
 }

@@ -17,17 +17,26 @@ class CustomButtom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppDimensions.init(context);
-    return SizedBox(
+    return Container(
       width: AppDimensions.sizedBox88,
       height: AppDimensions.sizedBox29,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50), // Bo góc (tuỳ chỉnh)
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.25), // Màu shadow (#00000040)
+              offset: const Offset(0, 4), // Độ lệch của shadow (0px, 4px)
+              blurRadius: 4, // Độ mờ của shadow (4px)
+            ),
+          ]),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-          padding: EdgeInsets.zero
-        ),
+            backgroundColor: color,
+            shadowColor: black.withOpacity(0.25),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),
+            padding: EdgeInsets.zero),
         onPressed: onPressed,
         child: Text(
           text,

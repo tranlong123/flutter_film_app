@@ -14,8 +14,8 @@ import 'package:flutter_mvvm_riverpod/widget/item_vote.dart';
 import 'package:flutter_mvvm_riverpod/widget/start_vote.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final _provider =
-    StateNotifierProvider.autoDispose.family<MovieViewModel, MovieScreenState, int>(
+final _provider = StateNotifierProvider.autoDispose
+    .family<MovieViewModel, MovieScreenState, int>(
   (ref, id) => MovieViewModel(
     ref: ref,
     movieRepository: ref.watch(movieRepositoryProvider),
@@ -64,7 +64,7 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
           _buildMovieDescription(),
           SizedBox(height: AppDimensions.sizedBox45),
           _buildMayBeLikeText(),
-          CreateMayBeLikeList(movies: state.mayBeLike)
+          CreateMayBeLikeList(movies: state.mayBeLike),
         ],
       ),
     );
@@ -222,6 +222,7 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
               onPressed: () => print('Button pressed'),
               color: watchBt,
             ),
+            const SizedBox(width: 5,),
             CustomButtom(
               text: 'Download',
               // ignore: avoid_print

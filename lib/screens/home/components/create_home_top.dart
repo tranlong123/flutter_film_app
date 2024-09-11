@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/screens/search/search_screen.dart';
 import 'package:flutter_mvvm_riverpod/screens/trending_list/trending_list_screen.dart';
 import 'package:flutter_mvvm_riverpod/widget/app_bar_title.dart';
 
@@ -26,15 +27,22 @@ class CreateHomeTop extends StatelessWidget {
             child: const AppBarTitle(),
           ),
           GestureDetector(
-              // onTap: () => Navigator.pushNamed(context, '/search'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SearchScreen(),
+                  ),
+                );
+              },
               child: SizedBox(
-            height: AppDimensions.searchIconSizeHeight,
-            width: AppDimensions.searchIconSizeWidth,
-            child: Image.asset(
-              'assets/image/search.png',
-              fit: BoxFit.cover,
-            ),
-          )),
+                height: AppDimensions.searchIconSizeHeight,
+                width: AppDimensions.searchIconSizeWidth,
+                child: Image.asset(
+                  'assets/image/search.png',
+                  fit: BoxFit.cover,
+                ),
+              )),
         ],
       ),
     );

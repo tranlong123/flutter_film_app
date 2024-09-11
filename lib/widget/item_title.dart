@@ -10,8 +10,9 @@ class ItemTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? AppDimensions.sizedBox150,
+      width: width ?? AppDimensions.sizedBox156,
       height: AppDimensions.sizedBox23,
+      // height: 23.44,
       child: Text(
         title,
         overflow:
@@ -19,8 +20,8 @@ class ItemTitle extends StatelessWidget {
         maxLines: 1, // Giới hạn số dòng
         style: TextStyle(
             color: black,
-            fontSize: AppDimensions.fontSize20,
-            fontWeight: FontWeight.w700),
+            fontWeight: FontWeight.w700,
+            height: AppDimensions.lineHeight),
       ),
     );
   }

@@ -9,16 +9,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class TrendingListViewModel extends BaseViewModel<TrendingListState> {
   final Ref ref;
   final TrendingRepository trendingRepository;
-  late ScrollController scrollController;
 
   TrendingListViewModel({
     required this.ref,
     required this.trendingRepository,
     required String time,
-  }) : super(TrendingListState(time: time)) {
-    scrollController = ScrollController();
-    scrollController.addListener(_scrollListener);
-  }
+  }) : super(TrendingListState(time: time));
 
   Future<void> _fetchTrendingMovies({int? page}) async {
     state = state.copyWith(isLoading: true);
@@ -43,18 +39,14 @@ class TrendingListViewModel extends BaseViewModel<TrendingListState> {
   }
 
   // scroll
-  void _scrollListener() {
-    if (scrollController.position.pixels ==
-            scrollController.position.maxScrollExtent &&
-        !state.isLoadingMore) {
-      loadMoreMovies();
-    }
-    if (scrollController.position.pixels > 0 && !state.showScrollTopButton) {
-      state = state.copyWith(showScrollTopButton: true);
-    } else if (scrollController.position.pixels <= 0 &&
-        state.showScrollTopButton) {
-      state = state.copyWith(showScrollTopButton: false);
-    }
+
+
+  void showScrollTopButton() {
+    state = state.copyWith(showScrollTopButton: true);
+  }
+
+  void unShowScrollTopButton() {
+    state = state.copyWith(showScrollTopButton: false);
   }
 
   Future<void> loadMoreMovies() async {
@@ -78,17 +70,4 @@ class TrendingListViewModel extends BaseViewModel<TrendingListState> {
     _fetchTrendingMovies();
   }
 
-  void scrollToTop() {
-    scrollController.animateTo(
-      0,
-      duration: const Duration(seconds: 1),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
 }

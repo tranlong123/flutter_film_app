@@ -22,7 +22,8 @@ class ItemOverview extends StatelessWidget {
             color: black,
             fontWeight: FontWeight.w400,
             fontSize: AppDimensions.fontSize10,
-            height: 1.172),
+            height: 1.172
+            ),
       ),
     );
   }

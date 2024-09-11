@@ -35,18 +35,19 @@ class _ItemVoteState extends State<ItemVote> {
         children: [
           _buildHeartIcon(ontap: _toggleVote, isVote: isVote),
           SizedBox(
-            width: AppDimensions.sizedBox44,
+            // width: 44,
+            // AppDimensions.sizedBox44,
             height: AppDimensions.sizedBox18,
             child: Text(
               '$_voteCount',
               maxLines: 1, // Giới hạn chỉ hiển thị 1 dòng
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  color: black,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w600,
-                  height: 1.172,
-                  fontSize: AppDimensions.fontSize15),
+              style: const TextStyle(
+                color: black,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w600,
+                height: 1.172,
+              ),
             ),
           ),
         ],

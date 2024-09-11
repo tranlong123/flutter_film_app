@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/components/base_view/base_view.dart';
 import 'package:flutter_mvvm_riverpod/data/repositories/trending_repository.dart';
-import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
-import 'package:flutter_mvvm_riverpod/screens/trending_list/components/create_trending_list.dart';
+import 'package:flutter_mvvm_riverpod/widget/create_movie_list.dart';
 import 'package:flutter_mvvm_riverpod/screens/trending_list/trending_list_state.dart';
 import 'package:flutter_mvvm_riverpod/screens/trending_list/trending_list_view_model.dart';
+import 'package:flutter_mvvm_riverpod/widget/scroll_top_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _provider = StateNotifierProvider.autoDispose
@@ -29,35 +29,50 @@ class TrendingListScreen extends BaseView {
 
 class _TrendingListScreenState
     extends BaseViewState<TrendingListScreen, TrendingListViewModel> {
+  late ScrollController scrollController;
+
   @override
   Future<void> onInitState() async {
     super.onInitState();
+    scrollController = ScrollController();
+    scrollController.addListener(_scrollListener);
     await Future.delayed(Duration.zero, () async {
       await viewModel.initData();
     });
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent &&
+        !state.isLoadingMore) {
+      viewModel.loadMoreMovies();
+    }
+    if (scrollController.position.pixels > 0 && !state.showScrollTopButton) {
+      viewModel.showScrollTopButton();
+    } else if (scrollController.position.pixels <= 0 &&
+        state.showScrollTopButton) {
+      viewModel.unShowScrollTopButton();
+    }
+  }
+
+  void scrollToTop() {
+    scrollController.animateTo(
+      0,
+      duration: const Duration(seconds: 1),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
   Widget buildBody(BuildContext context) {
     return Stack(children: [
       _buildTitle(),
-      Column(
-        children: [
-          SizedBox(height: AppDimensions.sizedBox80),
-          // Component hiển thị danh sách phim thịnh hành
-          Expanded(
-            child: RefreshIndicator(
-                onRefresh: () => viewModel.refreshMovies(),
-                backgroundColor: fullyTransparent,
-                child: CreateTrendingList(
-                    movies: state.trendingList,
-                    scrollController: viewModel.scrollController,
-                    isLoadingMore: state.isLoadingMore)),
-          ),
-        ],
-      ),
-      if (state.showScrollTopButton)
-        _buildScrollTopButton(scrollToTop: viewModel.scrollToTop)
+      CreateMovieList(
+          movies: state.trendingList,
+          scrollController: scrollController,
+          isLoadingMore: state.isLoadingMore,
+          refreshMovies: viewModel.refreshMovies),
+      if (state.showScrollTopButton) ScrollTopButton(scrollToTop: scrollToTop)
     ]);
   }
 
@@ -84,23 +99,14 @@ class _TrendingListScreenState
     );
   }
 
-  Widget _buildScrollTopButton({required VoidCallback scrollToTop}) {
-    return Positioned(
-      top: AppDimensions.scrollTopIconTop,
-      left: AppDimensions.scrollTopIconLeft,
-      child: GestureDetector(
-        onTap: scrollToTop,
-        child: SizedBox(
-          width: AppDimensions.scrollTopIconWidth,
-          height: AppDimensions.scrollTopIconHeight,
-          child: Image.asset('assets/image/scrollTopIcon.png'),
-        ),
-      ),
-    );
-  }
-
   @override
   TrendingListViewModel get viewModel =>
       ref.read(_provider(widget.time).notifier);
   TrendingListState get state => ref.watch(_provider(widget.time));
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 }

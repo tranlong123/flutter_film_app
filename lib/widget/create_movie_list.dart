@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
@@ -9,19 +10,33 @@ import 'package:flutter_mvvm_riverpod/widget/item_title.dart';
 import 'package:flutter_mvvm_riverpod/widget/item_vote.dart';
 import 'package:flutter_mvvm_riverpod/widget/start_vote.dart';
 
-class CreateTrendingList extends StatelessWidget {
+class CreateMovieList extends StatelessWidget {
   final List<Movie> movies;
-  final ScrollController scrollController;
   final bool isLoadingMore;
-
-  const CreateTrendingList(
+  final ScrollController scrollController;
+  final RefreshCallback refreshMovies;
+  const CreateMovieList(
       {super.key,
       required this.movies,
       required this.scrollController,
-      required this.isLoadingMore});
+      required this.isLoadingMore,
+      required this.refreshMovies});
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: AppDimensions.sizedBox80),
+        Expanded(
+          child: RefreshIndicator(
+              onRefresh: refreshMovies,
+              backgroundColor: fullyTransparent,
+              child:_buildMovieList()),
+        ),
+      ],
+    );
+  }
+  Widget _buildMovieList(){
     return ListView.builder(
       controller: scrollController,
       itemCount:
@@ -34,36 +49,38 @@ class CreateTrendingList extends StatelessWidget {
             return const SizedBox.shrink();
           }
         } else if (index == movies.length + 1) {
-          return SizedBox(
-              height: AppDimensions.sizedBox35); 
+          return SizedBox(height: AppDimensions.sizedBox35);
         }
-        return _buildTrendingItem(context,movie: movies[index]);
+        return _buildItem(context, movie: movies[index]);
       },
     );
   }
-
-  Widget _buildTrendingItem(context,{required Movie movie}) {
+  Widget _buildItem(context, {required Movie movie}) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  MovieScreen(id: movie.id),
+            builder: (context) => MovieScreen(id: movie.id),
           ),
         );
       },
       child: Column(
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildItemImage(item: movie.posterPath),
-              _buildItemDescription(
-                  title: movie.title,
-                  vote: movie.voteAverage,
-                  overview: movie.overview),
-              ItemVote(voteCount: movie.voteCount)
-            ],
+          SizedBox(
+            width: AppDimensions.screenWidth,
+            height: AppDimensions.sizedBox116,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildItemImage(item: movie.posterPath),
+                _buildItemDescription(
+                    title: movie.title,
+                    vote: movie.voteAverage,
+                    overview: movie.overview,
+                    voteCount: movie.voteCount),
+              ],
+            ),
           ),
           SizedBox(
             height: AppDimensions.sizedBox35,
@@ -106,16 +123,24 @@ class CreateTrendingList extends StatelessWidget {
   }
 
   Widget _buildItemDescription(
-      {required String title, required double vote, required String overview}) {
+      {required String title,
+      required double vote,
+      required String overview,
+      required int voteCount}) {
     return SizedBox(
-      width: AppDimensions.sizedBox155,
       height: AppDimensions.sizedBox116,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ItemTitle(title: title),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [ItemTitle(title: title), ItemVote(voteCount: voteCount)],
+          ),
           StartVote(vote: vote),
-          SizedBox(height: AppDimensions.sizedBox17),
-          ItemOverview(text: overview)
+          SizedBox(height: AppDimensions.sizedBox16),
+          SizedBox(
+              width: AppDimensions.sizedBox158,
+              child: ItemOverview(text: overview))
         ],
       ),
     );
