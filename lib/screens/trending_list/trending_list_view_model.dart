@@ -16,20 +16,18 @@ class TrendingListViewModel extends BaseViewModel<TrendingListState> {
     required String time,
   }) : super(TrendingListState(time: time));
 
+  Future<void> initData() async {
+    await _fetchTrendingMovies();
+  }
+
   Future<void> _fetchTrendingMovies({int? page}) async {
     state = state.copyWith(isLoading: true);
     try {
       final response = await trendingRepository.getTrendingMovies(
           page ?? state.page, state.time);
-      if (state.isLoadingMore) {
-        List<Movie> trendingList =
-            List.from(state.trendingList); // Sao chép danh sách hiện tại
-        trendingList
-            .addAll(response.results); // Thêm các phần tử từ response.results
-        state = state.copyWith(trendingList: trendingList);
-      } else {
-        state = state.copyWith(trendingList: response.results);
-      }
+      List<Movie> trendingList = List.from(state.trendingList);
+      trendingList.addAll(response.results ?? []);
+      state = state.copyWith(trendingList: trendingList);
     } catch (e) {
       debugPrint('Error fetching movies: $e');
       state = state.copyWith(trendingList: []);
@@ -38,28 +36,12 @@ class TrendingListViewModel extends BaseViewModel<TrendingListState> {
     }
   }
 
-  // scroll
-
-
-  void showScrollTopButton() {
-    state = state.copyWith(showScrollTopButton: true);
-  }
-
-  void unShowScrollTopButton() {
-    state = state.copyWith(showScrollTopButton: false);
-  }
-
   Future<void> loadMoreMovies() async {
-    // Thêm logic tải thêm phim vào đây
     state = state.copyWith(isLoadingMore: true);
     await Future.delayed(const Duration(seconds: 2));
     int page = state.page + 1;
     state = state.copyWith(page: page);
     _fetchTrendingMovies(page: state.page);
-  }
-
-  Future<void> initData() async {
-    await _fetchTrendingMovies();
   }
 
   Future<void> refreshMovies() async {
@@ -70,4 +52,11 @@ class TrendingListViewModel extends BaseViewModel<TrendingListState> {
     _fetchTrendingMovies();
   }
 
+  void showScrollTopButton() {
+    state = state.copyWith(showScrollTopButton: true);
+  }
+
+  void unShowScrollTopButton() {
+    state = state.copyWith(showScrollTopButton: false);
+  }
 }

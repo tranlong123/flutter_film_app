@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
@@ -55,8 +56,8 @@ class CreateMayBeLikeList extends StatelessWidget {
             left: AppDimensions.sizedBox5, right: AppDimensions.sizedBox5),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(5),
-          child: Image.network(
-            'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+          child: CachedNetworkImage(
+            imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
             fit: BoxFit.cover,
             width: AppDimensions.gridItemWidth,
             height: AppDimensions.gridItemHeight,

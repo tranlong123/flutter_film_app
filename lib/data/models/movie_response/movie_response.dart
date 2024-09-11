@@ -8,7 +8,7 @@ part 'movie_response.g.dart';
 class MovieResponse with _$MovieResponse {
   const factory MovieResponse({
     required int page,
-    required List<Movie> results,
+    List<Movie>? results,
     required int totalPages,
     required int totalResults,
   }) = _MovieResponse;

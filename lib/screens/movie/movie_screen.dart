@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/components/base_view/base_view.dart';
 import 'package:flutter_mvvm_riverpod/data/repositories/movie_repository.dart';
@@ -103,8 +104,8 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(AppDimensions.fontSize10),
-                child: Image.network(
-                  'https://image.tmdb.org/t/p/w500${state.movieDetail.posterPath}',
+                child: CachedNetworkImage(
+                  imageUrl: 'https://image.tmdb.org/t/p/w500${state.movieDetail.posterPath}',
                   width: AppDimensions.gridItemWidth,
                   height: AppDimensions.gridItemHeight,
                   fit: BoxFit.cover,

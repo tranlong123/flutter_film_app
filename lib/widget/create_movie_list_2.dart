@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
@@ -14,29 +13,14 @@ class CreateMovieList extends StatelessWidget {
   final List<Movie> movies;
   final bool isLoadingMore;
   final ScrollController scrollController;
-  final RefreshCallback refreshMovies;
   const CreateMovieList(
       {super.key,
       required this.movies,
       required this.scrollController,
-      required this.isLoadingMore,
-      required this.refreshMovies});
+      required this.isLoadingMore});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: AppDimensions.sizedBox80),
-        Expanded(
-          child: RefreshIndicator(
-              onRefresh: refreshMovies,
-              backgroundColor: fullyTransparent,
-              child:_buildMovieList()),
-        ),
-      ],
-    );
-  }
-  Widget _buildMovieList(){
     return ListView.builder(
       controller: scrollController,
       itemCount:
@@ -55,6 +39,7 @@ class CreateMovieList extends StatelessWidget {
       },
     );
   }
+
   Widget _buildItem(context, {required Movie movie}) {
     return GestureDetector(
       onTap: () {

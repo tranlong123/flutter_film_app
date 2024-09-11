@@ -21,7 +21,7 @@ class HomeViewModel extends BaseViewModel<HomeState> {
   Future<void> _fetchTrendingWeekMovies() async {
     try {
       final response = await trendingRepository.getTrendingMoviesWeek(1);
-      state = state.copyWith(trendingWeekList: response.results);
+      state = state.copyWith(trendingWeekList: response.results??[]);
     } catch (e) {
       debugPrint('Error fetching movies: $e');
       state = state.copyWith(trendingWeekList: []); // Xử lý lỗi nếu cần
@@ -31,7 +31,7 @@ class HomeViewModel extends BaseViewModel<HomeState> {
   Future<void> _fetchTrendingDayMovies() async {
     try {
       final response = await trendingRepository.getTrendingMoviesDay(1);
-      state = state.copyWith(listOfDay: response.results);
+      state = state.copyWith(listOfDay: response.results??[]);
     } catch (e) {
       debugPrint('Error fetching movies: $e');
       state = state.copyWith(listOfDay: []); // Xử lý lỗi nếu cần
