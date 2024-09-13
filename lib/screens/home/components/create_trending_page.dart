@@ -1,53 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
-import 'package:flutter_mvvm_riverpod/data/repositories/trending_repository.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
-import 'package:flutter_mvvm_riverpod/screens/home/components/trending_page_view/trending_page_state.dart';
-import 'package:flutter_mvvm_riverpod/screens/home/components/trending_page_view/trending_page_view_model.dart';
 import 'package:flutter_mvvm_riverpod/widget/movie_image.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-final _provider =
-    StateNotifierProvider.autoDispose<TrendingPageViewModel, TrendingPageState>(
-  (ref) => TrendingPageViewModel(
-    ref: ref,
-    trendingRepository: ref.watch(trendingRepositoryProvider),
-  ),
-);
-
-class CreateTrendingPage extends ConsumerStatefulWidget {
-  const CreateTrendingPage({super.key});
+class CreateTrendingPage extends StatefulWidget {
+  final List<Movie> trendingWeekList;
+  final bool isLoading;
+  const CreateTrendingPage(
+      {super.key, required this.isLoading, required this.trendingWeekList});
 
   @override
-  ConsumerState<CreateTrendingPage> createState() => _CreateTrendingPageState();
+  CreateTrendingPageState createState() => CreateTrendingPageState();
 }
 
-class _CreateTrendingPageState extends ConsumerState<CreateTrendingPage> {
+class CreateTrendingPageState extends State<CreateTrendingPage> {
+  int _currentPage = 0;
   @override
   void initState() {
     super.initState();
-    onInitState();
   }
 
-  Future<void> onInitState() async {
-    await Future.delayed(Duration.zero, () async {
-      await viewModel.initData();
+  void setCurrentPage(int i) {
+    setState(() {
+      _currentPage = i;
     });
   }
 
-  TrendingPageViewModel get viewModel => ref.read(_provider.notifier);
-  TrendingPageState get state => ref.watch(_provider);
-
   @override
   Widget build(BuildContext context) {
-    if (state.isLoading) {
-      // Hiển thị widget loading khi đang tải dữ liệu
+    if (widget.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
-    if (state.trendingWeekList.isEmpty) {
+    if (widget.trendingWeekList.isEmpty) {
       return const Center(child: Text('Không có dữ liệu'));
     }
     return Column(
@@ -55,22 +42,23 @@ class _CreateTrendingPageState extends ConsumerState<CreateTrendingPage> {
         SizedBox(
             height: AppDimensions.isCurrentPageHeight,
             child: CarouselSlider.builder(
-              itemCount: state.trendingWeekList.length,
+              itemCount: widget.trendingWeekList.length,
               itemBuilder: (context, index, realIndex) {
-                final movie = state.trendingWeekList[index];
-                final isCurrentPage = index == state.currentPage;
+                final movie = widget.trendingWeekList[index];
+                final isCurrentPage = index == _currentPage;
                 return _buildPageItem(
                     movie: movie, isCurrentPage: isCurrentPage, index: index);
               },
               options: CarouselOptions(
-                  initialPage: state.currentPage,
-                  viewportFraction: 0.68,
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                  onPageChanged: (index, reason) {
-                    viewModel.setCurrentPage(index);
-                  },
-                  height: AppDimensions.isCurrentPageHeight),
+                initialPage: _currentPage,
+                viewportFraction: 0.68,
+                autoPlay: true,
+                onPageChanged: (index, reason) {
+                  setCurrentPage(index);
+                  print(_currentPage);
+                },
+                height: AppDimensions.isCurrentPageHeight,
+              ),
             )),
         _buildPageIndicator(
           itemCount: 6,
@@ -79,13 +67,11 @@ class _CreateTrendingPageState extends ConsumerState<CreateTrendingPage> {
     );
   }
 
-  Future<void> pageItemOnTap({required int index}) async {}
-
   Widget _buildPageItem(
       {required Movie movie, required bool isCurrentPage, required int index}) {
     return Center(
       child: GestureDetector(
-        onTap: () => pageItemOnTap(index: index),
+        onTap: () => setCurrentPage(index),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeInOut,
@@ -128,10 +114,15 @@ class _CreateTrendingPageState extends ConsumerState<CreateTrendingPage> {
               spacing: AppDimensions.dotSize,
               expansionFactor: 1.00000001,
             ),
-            activeIndex: state.currentPage,
+            activeIndex: _currentPage,
           ),
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

@@ -13,19 +13,32 @@ class HomeViewModel extends BaseViewModel<HomeState> {
     required this.trendingRepository,
   }) : super(const HomeState());
 
-  void initData()  {
-    _fetchTrendingDayMovies();
+  Future<void> initData() async {
+    await _fetchMovies();
+    state = state.copyWith(isLoading: false);
   }
 
-  Future<void> _fetchTrendingDayMovies() async {
-    try {
-      final response = await trendingRepository.getTrendingMoviesDay(1);
-      state = state.copyWith(listOfDay: response.results ?? []);
-    } catch (e) {
+  Future<void> _fetchMovies() {
+    state = state.copyWith(isLoading: true);
+    final weekMoviesFuture = trendingRepository.getTrendingMoviesWeek(
+        1, '7ff74d3989927d3ca53bdc4d16facfe9');
+    final dayMoviesFuture = trendingRepository.getTrendingMoviesDay(
+        1, '7ff74d3989927d3ca53bdc4d16facfe9');
+
+    return Future.wait([weekMoviesFuture, dayMoviesFuture]).then((results) {
+      final trendingWeekResponse = results[0];
+      final trendingDayResponse = results[1];
+
+      state = state.copyWith(
+        trendingWeekList: trendingWeekResponse.results ?? [],
+        listOfDay: trendingDayResponse.results ?? [],
+      );
+    }).catchError((e) {
       debugPrint('Error fetching movies: $e');
-      state = state.copyWith(listOfDay: []); // Xử lý lỗi nếu cần
-    } finally {
-      state = state.copyWith(isLoading: false);
-    }
+      state = state.copyWith(
+        trendingWeekList: [],
+        listOfDay: [],
+      );
+    });
   }
 }

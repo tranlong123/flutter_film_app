@@ -11,19 +11,18 @@ final movieRepositoryProvider = Provider<MovieRepository>((ref) {
 
 class MovieRepository {
   final ApiClient _moviesApi;
-  final String _apikey = '7ff74d3989927d3ca53bdc4d16facfe9';
   MovieRepository(this._moviesApi);
 
-  Future<MovieDetail> getMovieDetail(int id) async {
+  Future<MovieDetail> getMovieDetail(int id, String apikey) async {
     return await _moviesApi.getMovieDetail(
-      apiKey: _apikey,
+      apiKey: apikey,
       id: id,
     );
   }
 
-  Future<MovieColection> getMovieColection(int id) async {
+  Future<MovieColection> getMovieColection(int id, String apikey) async {
     return await _moviesApi.getMovieColection(
-      apiKey: _apikey,
+      apiKey: apikey,
       id: id,
     );
   }
