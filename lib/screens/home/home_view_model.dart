@@ -21,9 +21,9 @@ class HomeViewModel extends BaseViewModel<HomeState> {
   Future<void> _fetchMovies() {
     state = state.copyWith(isLoading: true);
     final weekMoviesFuture = trendingRepository.getTrendingMoviesWeek(
-        1, '7ff74d3989927d3ca53bdc4d16facfe9');
+        1);
     final dayMoviesFuture = trendingRepository.getTrendingMoviesDay(
-        1, '7ff74d3989927d3ca53bdc4d16facfe9');
+        1);
 
     return Future.wait([weekMoviesFuture, dayMoviesFuture]).then((results) {
       final trendingWeekResponse = results[0];

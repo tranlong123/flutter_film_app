@@ -43,14 +43,11 @@ class MovieViewModel extends BaseViewModel<MovieScreenState> {
   }
 
   Future<void> _fetchInitData() async {
-    movieRepository
-        .getMovieDetail(state.id, '7ff74d3989927d3ca53bdc4d16facfe9')
-        .then((movieDetail) {
+    movieRepository.getMovieDetail(state.id).then((movieDetail) {
       // Nếu movieDetail có collection
       if (movieDetail.belongsToCollection != null) {
         return movieRepository
-            .getMovieColection(movieDetail.belongsToCollection!.id,
-                '7ff74d3989927d3ca53bdc4d16facfe9')
+            .getMovieColection(movieDetail.belongsToCollection!.id)
             .then((collectionResponse) {
           // Cập nhật state với cả movieDetail và collection
           state = state.copyWith(

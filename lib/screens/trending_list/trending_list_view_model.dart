@@ -24,7 +24,7 @@ class TrendingListViewModel extends BaseViewModel<TrendingListState> {
     state = state.copyWith(isLoading: true);
     try {
       final response = await trendingRepository.getTrendingMovies(
-          page ?? state.page, '7ff74d3989927d3ca53bdc4d16facfe9', state.time);
+          page ?? state.page, state.time);
       List<Movie> trendingList = List.from(state.trendingList);
       trendingList.addAll(response.results ?? []);
       state = state.copyWith(trendingList: trendingList);
