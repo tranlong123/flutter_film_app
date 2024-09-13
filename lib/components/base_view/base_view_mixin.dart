@@ -44,7 +44,7 @@ mixin BaseViewMixin {
           child: tapOutsideToDismissKeyBoard
               ? SizedBox(
                   width: AppDimensions.screenWidth,
-                  height:AppDimensions.screenHeight,
+                  height: AppDimensions.screenHeight,
                   child: buildBody(context),
                 )
               : buildBody(context),

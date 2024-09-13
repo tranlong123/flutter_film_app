@@ -25,7 +25,6 @@ class StartVote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int numberOfStars = _calculateStars(vote);
-    AppDimensions.init(context);
     return Row(
       children: List.generate(5, (index) {
         return Icon(

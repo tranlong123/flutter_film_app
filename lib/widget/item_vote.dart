@@ -28,7 +28,6 @@ class _ItemVoteState extends State<ItemVote> {
 
   @override
   Widget build(BuildContext context) {
-    AppDimensions.init(context);
     return SizedBox(
       height: AppDimensions.sizedBox18,
       child: Row(

@@ -11,8 +11,6 @@ class AppBarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppDimensions.init(context);
-
     return Text(
       text ?? 'Trending',
       style: TextStyle(

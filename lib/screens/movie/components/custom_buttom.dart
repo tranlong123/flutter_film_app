@@ -16,7 +16,6 @@ class CustomButtom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppDimensions.init(context);
     return Container(
       width: AppDimensions.sizedBox88,
       height: AppDimensions.sizedBox29,

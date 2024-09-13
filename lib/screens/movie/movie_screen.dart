@@ -198,7 +198,6 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
   }
 
   Widget _buildMovieCateList() {
-    AppDimensions.init(context);
     return SizedBox(
         width: AppDimensions.sizedBox188,
         child: Wrap(
@@ -211,7 +210,6 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
   }
 
   Widget _buildWatchAndDownload() {
-    AppDimensions.init(context);
     return SizedBox(
         width: AppDimensions.sizedBox188,
         child: Row(

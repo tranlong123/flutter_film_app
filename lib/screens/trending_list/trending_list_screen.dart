@@ -32,10 +32,15 @@ class _TrendingListScreenState
   late ScrollController scrollController;
 
   @override
-  Future<void> onInitState() async {
-    super.onInitState();
+  void initState() {
+    super.initState();
     scrollController = ScrollController();
     scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  Future<void> onInitState() async {
+    super.onInitState();
     viewModel.initData();
   }
 

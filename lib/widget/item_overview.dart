@@ -10,7 +10,6 @@ class ItemOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppDimensions.init(context);
     return SizedBox(
       height:height?? AppDimensions.sizedBox56,
       child: Text(
