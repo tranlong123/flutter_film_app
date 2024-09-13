@@ -36,9 +36,7 @@ class _TrendingListScreenState
     super.onInitState();
     scrollController = ScrollController();
     scrollController.addListener(_scrollListener);
-    await Future.delayed(Duration.zero, () async {
-      await viewModel.initData();
-    });
+    viewModel.initData();
   }
 
   void _scrollListener() {

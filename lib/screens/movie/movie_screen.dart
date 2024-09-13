@@ -37,9 +37,7 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
   @override
   Future<void> onInitState() async {
     super.onInitState();
-    await Future.delayed(Duration.zero, () async {
-      await viewModel.initData();
-    });
+    await viewModel.initData();
   }
 
   @override
@@ -105,7 +103,8 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(AppDimensions.fontSize10),
                 child: CachedNetworkImage(
-                  imageUrl: 'https://image.tmdb.org/t/p/w500${state.movieDetail.posterPath}',
+                  imageUrl:
+                      'https://image.tmdb.org/t/p/w500${state.movieDetail.posterPath}',
                   width: AppDimensions.gridItemWidth,
                   height: AppDimensions.gridItemHeight,
                   fit: BoxFit.cover,
@@ -223,7 +222,9 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
               onPressed: () => print('Button pressed'),
               color: watchBt,
             ),
-            const SizedBox(width: 5,),
+            const SizedBox(
+              width: 5,
+            ),
             CustomButtom(
               text: 'Download',
               // ignore: avoid_print

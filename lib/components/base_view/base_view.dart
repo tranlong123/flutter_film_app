@@ -13,17 +13,20 @@ abstract class BaseViewState<View extends BaseView,
         ViewModel extends BaseViewModel> extends ConsumerState<View>
     with BaseViewMixin {
   ViewModel get viewModel;
-  @mustCallSuper
-  void onInitState() {}
   @override
   void initState() {
-    onInitState();
+    Future.delayed(Duration.zero, () async {
+      onInitState();
+    });
     super.initState();
   }
 
+  @mustCallSuper
+  Future<void> onInitState() async {}
+
   @override
   Widget build(BuildContext context) => buildView(context);
-  
+
   @override
   void dispose() {
     super.dispose();

@@ -32,9 +32,7 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
     super.onInitState();
     scrollController = ScrollController();
     scrollController.addListener(_scrollListener);
-    await Future.delayed(Duration.zero, () async {
-      await viewModel.initData();
-    });
+    viewModel.initData();
   }
 
   void _scrollListener() {
@@ -101,7 +99,7 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
                     border: InputBorder.none,
                     isDense: true,
                     contentPadding: EdgeInsets.symmetric(
-                        vertical: AppDimensions.contentPaddingVertical, 
+                        vertical: AppDimensions.contentPaddingVertical,
                         horizontal: AppDimensions.sizedBox24),
                   ),
                   style: TextStyle(

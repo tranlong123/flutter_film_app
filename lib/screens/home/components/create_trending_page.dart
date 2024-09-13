@@ -32,9 +32,8 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
   @override
   Widget build(BuildContext context) {
     if (widget.isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
-    if (widget.trendingWeekList.isEmpty) {
+      return Container();
+    } else if (!widget.isLoading && widget.trendingWeekList.isEmpty) {
       return const Center(child: Text('Không có dữ liệu'));
     }
     return Column(
@@ -55,7 +54,6 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
                 autoPlay: true,
                 onPageChanged: (index, reason) {
                   setCurrentPage(index);
-                  print(_currentPage);
                 },
                 height: AppDimensions.isCurrentPageHeight,
               ),

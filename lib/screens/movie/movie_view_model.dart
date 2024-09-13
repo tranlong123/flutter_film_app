@@ -42,30 +42,34 @@ class MovieViewModel extends BaseViewModel<MovieScreenState> {
     _fetchInitData();
   }
 
-  Future<void> _fetchMovieDetail() async {
-    try {
-      final response = await movieRepository.getMovieDetail(state.id,'7ff74d3989927d3ca53bdc4d16facfe9');
-      state = state.copyWith(movieDetail: response);
-    } catch (e, stacktrace) {
-      debugPrint('Error fetching movie detail: $e');
-      debugPrint('Stacktrace: $stacktrace');
-    }
-  }
-
   Future<void> _fetchInitData() async {
-    await _fetchMovieDetail();
-    if (state.movieDetail.belongsToCollection != null) {
-      try {
-        final response = await movieRepository
-            .getMovieColection(state.movieDetail.belongsToCollection!.id,'7ff74d3989927d3ca53bdc4d16facfe9');
-        state = state.copyWith(mayBeLike: response.parts);
-      } catch (e, stacktrace) {
-        debugPrint('Error fetching movie detail: $e');
-        debugPrint('Stacktrace: $stacktrace');
-      } finally {
-        state = state.copyWith(isLoading: false);
+    movieRepository
+        .getMovieDetail(state.id, '7ff74d3989927d3ca53bdc4d16facfe9')
+        .then((movieDetail) {
+      // Nếu movieDetail có collection
+      if (movieDetail.belongsToCollection != null) {
+        return movieRepository
+            .getMovieColection(movieDetail.belongsToCollection!.id,
+                '7ff74d3989927d3ca53bdc4d16facfe9')
+            .then((collectionResponse) {
+          // Cập nhật state với cả movieDetail và collection
+          state = state.copyWith(
+            movieDetail: movieDetail,
+            mayBeLike: collectionResponse.parts,
+            isLoading: false,
+          );
+        });
+      } else {
+        // Nếu không có collection, chỉ cập nhật movieDetail
+        state = state.copyWith(
+          movieDetail: movieDetail,
+          isLoading: false,
+        );
       }
-    }
-    state = state.copyWith(isLoading: false);
+    }).catchError((e, stacktrace) {
+      debugPrint('Error fetching movie detail or collection: $e');
+      debugPrint('Stacktrace: $stacktrace');
+      state = state.copyWith(isLoading: false);
+    });
   }
 }
