@@ -24,9 +24,6 @@ class SearchViewModel extends BaseViewModel<SearchState> {
       List<Movie> searchList = List.from(state.searchList);
       searchList.addAll(response.results ?? []);
       state = state.copyWith(searchList: searchList);
-      debugPrint('${state.searchList}');
-      debugPrint('//////////////');
-      debugPrint('$searchList');
     } catch (e) {
       debugPrint('Error fetching movies: $e');
       state = state.copyWith(searchList: []);
@@ -43,9 +40,6 @@ class SearchViewModel extends BaseViewModel<SearchState> {
     await Future.delayed(const Duration(seconds: 1));
     state = state.copyWith(query: query, page: 1, searchList: []);
     await _fetchSearchMovie(page: state.page);
-    debugPrint('${state.searchList}');
-    debugPrint(state.query);
-    debugPrint(query);
   }
 
   void unShowScrollTopButton() {
