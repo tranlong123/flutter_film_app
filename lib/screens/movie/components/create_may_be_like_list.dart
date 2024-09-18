@@ -6,15 +6,16 @@ import 'package:flutter_mvvm_riverpod/screens/movie/movie_screen.dart';
 
 class CreateMayBeLikeList extends StatelessWidget {
   final List<Movie> movies;
-  const CreateMayBeLikeList({super.key, required this.movies});
+  final double gridViewHeight;
+
+  CreateMayBeLikeList({super.key, required this.movies})
+      : gridViewHeight =
+            ((AppDimensions.gridItemHeight + AppDimensions.sizedBox29) *
+                ((movies.length / 3).ceil())),
+        super();
 
   @override
   Widget build(BuildContext context) {
-    final rows = (movies.length / 3).ceil();
-    final double itemHeight = AppDimensions.gridItemHeight;
-    final double verticalSpacing = AppDimensions.sizedBox29;
-    final double gridViewHeight = (itemHeight + verticalSpacing) * rows;
-
     return SizedBox(
       width: AppDimensions.screenWidth,
       height: gridViewHeight,
