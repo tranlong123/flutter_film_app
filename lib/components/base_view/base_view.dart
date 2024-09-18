@@ -15,7 +15,8 @@ abstract class BaseViewState<View extends BaseView,
   ViewModel get viewModel;
   @override
   void initState() {
-    Future.delayed(Duration.zero, () async {
+    //Duration.zero
+    Future.delayed(Duration.zero, () {
       onInitState();
     });
     super.initState();

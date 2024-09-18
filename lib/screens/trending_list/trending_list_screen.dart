@@ -41,7 +41,7 @@ class _TrendingListScreenState
   @override
   Future<void> onInitState() async {
     super.onInitState();
-    viewModel.initData();
+    await viewModel.initData();
   }
 
   void _scrollListener() {

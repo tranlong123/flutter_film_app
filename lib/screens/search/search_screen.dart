@@ -32,7 +32,7 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
     super.onInitState();
     scrollController = ScrollController();
     scrollController.addListener(_scrollListener);
-    viewModel.initData();
+    await viewModel.initData();
   }
 
   void _scrollListener() {

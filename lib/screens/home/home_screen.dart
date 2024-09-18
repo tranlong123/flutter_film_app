@@ -29,7 +29,7 @@ class _HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
   @override
   Future<void> onInitState() async {
     super.onInitState();
-    viewModel.initData();
+    await viewModel.initData();
   }
 
   @override
