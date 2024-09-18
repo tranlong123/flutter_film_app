@@ -6,44 +6,31 @@ import 'package:flutter_mvvm_riverpod/screens/movie/movie_screen.dart';
 
 class CreateMayBeLikeList extends StatelessWidget {
   final List<Movie> movies;
-  final double gridViewHeight;
-
-  CreateMayBeLikeList({super.key, required this.movies})
-      : gridViewHeight =
-            ((AppDimensions.gridItemHeight + AppDimensions.sizedBox29) *
-                ((movies.length / 3).ceil())),
-        super();
+  const CreateMayBeLikeList({super.key, required this.movies});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: AppDimensions.screenWidth,
-      height: gridViewHeight,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppDimensions.sizedBox5),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // Số mục trên mỗi hàng
-            childAspectRatio:
-                100 / 160, // Tỷ lệ chiều rộng/chiều cao của mỗi mục
+    return Column(
+      children: [
+        SizedBox(
+          width: AppDimensions.screenWidth,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppDimensions.sizedBox10),
+            child: Wrap(
+              spacing: AppDimensions.sizedBox10,
+              runSpacing: AppDimensions.sizedBox29,
+              children: movies.map((movie) {
+                return _buildMovieGridItem(context, movie: movie);
+              }).toList(),
+            ),
           ),
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: movies.length,
-          itemBuilder: (context, index) {
-            final movie = movies[index];
-            return Padding(
-              padding: EdgeInsets.only(
-                bottom: AppDimensions.sizedBox29,
-              ),
-              child: _buildMovieGridItem(context, movie: movie),
-            ); // Sử dụng widget item mới
-          },
         ),
-      ),
+        SizedBox(height: AppDimensions.sizedBox29)
+      ],
     );
   }
 
-  Widget _buildMovieGridItem(context, {required Movie movie}) {
+  Widget _buildMovieGridItem(BuildContext context, {required Movie movie}) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -54,15 +41,13 @@ class CreateMayBeLikeList extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(
-            left: AppDimensions.sizedBox5, right: AppDimensions.sizedBox5),
+        width: AppDimensions.gridItemWidth,
+        height: AppDimensions.gridItemHeight,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: CachedNetworkImage(
             imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
             fit: BoxFit.cover,
-            width: AppDimensions.gridItemWidth,
-            height: AppDimensions.gridItemHeight,
           ),
         ),
       ),
