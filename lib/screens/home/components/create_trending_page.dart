@@ -33,13 +33,22 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
     });
   }
 
-  void clickPage(int i) {
-    setCurrentPage(i);
-    _carouselController.animateToPage(
-      i,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOut,
-    );
+  void clickPage(int i, int id) {
+    if (i == _currentPage) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MovieScreen(id: id),
+        ),
+      );
+    } else {
+      setCurrentPage(i);
+      _carouselController.animateToPage(
+        i,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override
@@ -83,40 +92,26 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
       {required Movie movie, required bool isCurrentPage, required int index}) {
     return Center(
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-        width: isCurrentPage
-            ? AppDimensions.isCurrentPageWidth
-            : AppDimensions.pageViewWidth,
-        height: isCurrentPage
-            ? AppDimensions.isCurrentPageHeight
-            : AppDimensions.pageViewHeight,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: black.withOpacity(0.25),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: MovieImage(
-            movie: movie,
-            onTap: () => {
-                  if (index == _currentPage)
-                    {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MovieScreen(id: movie.id),
-                        ),
-                      )
-                    }
-                  else
-                    clickPage(index)
-                }),
-      ),
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+          width: isCurrentPage
+              ? AppDimensions.isCurrentPageWidth
+              : AppDimensions.pageViewWidth,
+          height: isCurrentPage
+              ? AppDimensions.isCurrentPageHeight
+              : AppDimensions.pageViewHeight,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: black.withOpacity(0.25),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: MovieImage(
+              movie: movie, onTap: () => clickPage(index, movie.id))),
     );
   }
 
