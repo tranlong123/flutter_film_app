@@ -38,7 +38,6 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
   @override
   Future<void> onInitState() async {
     super.onInitState();
-
     await viewModel.initData();
   }
 
@@ -141,6 +140,8 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
     );
   }
 
+  @override
+  bool get tapOutsideToDismissKeyBoard => true;
   @override
   void dispose() {
     scrollController.dispose();

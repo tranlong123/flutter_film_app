@@ -15,10 +15,12 @@ class MovieImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        FocusScope.of(context).unfocus();
+
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  MovieScreen(id: movie.id),
+            builder: (context) => MovieScreen(id: movie.id),
           ),
         );
       },

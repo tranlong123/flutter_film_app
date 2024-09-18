@@ -43,21 +43,37 @@ mixin BaseViewMixin {
 
             if (shouldPop) {
               // Thực hiện thao tác cần thiết khi cho phép pop
-            // ignore: dead_code
+              // ignore: dead_code
             } else {
               // Ngăn cản pop nếu điều kiện không thỏa mãn
             }
           },
-          child: tapOutsideToDismissKeyBoard
-              ? SizedBox(
-                  width: AppDimensions.screenWidth,
-                  height: AppDimensions.screenHeight,
-                  child: buildBody(context),
-                )
-              : buildBody(context),
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: (() {
+              if (tapOutsideToDismissKeyBoard) {
+                dismissKeyBoard(context);
+              }
+            }),
+            child: tapOutsideToDismissKeyBoard
+                ? SizedBox(
+                    width: AppDimensions.screenWidth,
+                    height: AppDimensions.screenHeight,
+                    child: buildBody(context),
+                  )
+                : buildBody(context),
+          ),
         ),
       ),
       bottomNavigationBar: buildBottomNavigatorBar(context),
     );
+  }
+
+  void dismissKeyBoard(BuildContext context) {
+    if (FocusScope.of(context).hasFocus) {
+      FocusScope.of(context).unfocus();
+    } else {
+      FocusScope.of(context).requestFocus(FocusNode());
+    }
   }
 }
