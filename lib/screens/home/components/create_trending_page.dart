@@ -33,8 +33,8 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
     });
   }
 
-  void clickPage(int i, int id) {
-    if (i == _currentPage) {
+  void clickPage(int index, int id) {
+    if (index == _currentPage) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -42,9 +42,9 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
         ),
       );
     } else {
-      setCurrentPage(i);
+      setCurrentPage(index);
       _carouselController.animateToPage(
-        i,
+        index,
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
       );

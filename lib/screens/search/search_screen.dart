@@ -75,19 +75,6 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
     ]);
   }
 
-  Widget _buildMovieList() {
-    if (state.query == "") {
-      return const Center(
-        child: Text('what movie do you want to find'),
-      );
-    }
-    return CreateMovieList(
-        movies: state.searchList,
-        scrollController: scrollController,
-        isLoadingMore: state.isLoadingMore,
-        refreshMovies: viewModel.refreshMovies);
-  }
-
   void _onTextChanged(String text) {
     viewModel.searchMovie(query: text);
   }
@@ -114,6 +101,8 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
                   textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
                     border: InputBorder.none,
+                    hintText: 'Enter your movie',
+                    hintStyle: AppTextStyles.searchInput,
                     isDense: true,
                     contentPadding: EdgeInsets.symmetric(
                         vertical: AppDimensions.contentPaddingVertical,
@@ -138,6 +127,23 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
         ],
       ),
     );
+  }
+
+  Widget _buildMovieList() {
+    if (state.query == "") {
+      return Center(
+        child: Text(
+          'What movie do you want to find',
+          style: AppTextStyles.searchScreenCenter,
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+    return CreateMovieList(
+        movies: state.searchList,
+        scrollController: scrollController,
+        isLoadingMore: state.isLoadingMore,
+        refreshMovies: viewModel.refreshMovies);
   }
 
   @override

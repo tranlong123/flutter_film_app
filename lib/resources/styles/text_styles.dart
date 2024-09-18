@@ -77,4 +77,10 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
     height: 1.172,
   );
+  static TextStyle searchScreenCenter = TextStyle(
+      fontFamily: 'Roboto',
+      color: white,
+      fontWeight: FontWeight.w400,
+      fontSize: AppDimensions.fontSize18,
+      height: 1.172);
 }
