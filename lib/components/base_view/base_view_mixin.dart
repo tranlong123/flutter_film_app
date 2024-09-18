@@ -12,7 +12,7 @@ mixin BaseViewMixin {
 
   Color? get backgroundColor => bgColor;
 
-  Future<bool> onWillPop() async => true;
+  bool get onWillPop => true;
 
   Widget buildBody(BuildContext context);
 
@@ -38,9 +38,18 @@ mixin BaseViewMixin {
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       appBar: buildAppBar(context),
       body: SafeArea(
-        // ignore: deprecated_member_use
-        child: WillPopScope(
-          onWillPop: onWillPop,
+        child: PopScope(
+          onPopInvokedWithResult: (disposition, result) {
+            // Thực hiện logic khi người dùng nhấn nút Back
+            bool shouldPop = true; // Điều kiện xác định có pop hay không
+
+            if (shouldPop) {
+              // Thực hiện thao tác cần thiết khi cho phép pop
+            // ignore: dead_code
+            } else {
+              // Ngăn cản pop nếu điều kiện không thỏa mãn
+            }
+          },
           child: tapOutsideToDismissKeyBoard
               ? SizedBox(
                   width: AppDimensions.screenWidth,

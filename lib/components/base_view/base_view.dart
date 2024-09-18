@@ -15,7 +15,7 @@ abstract class BaseViewState<View extends BaseView,
   ViewModel get viewModel;
   @override
   void initState() {
-    //Duration.zero
+    //Duration.zero: UI task priority
     Future.delayed(Duration.zero, () {
       onInitState();
     });
