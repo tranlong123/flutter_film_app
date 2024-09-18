@@ -8,22 +8,22 @@ class MovieImage extends StatelessWidget {
   final double? width;
   final double? height;
   final Movie movie;
-
-  const MovieImage({required this.movie, super.key, this.width, this.height});
+  final VoidCallback? onTap;
+  const MovieImage(
+      {required this.movie, super.key, this.width, this.height, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MovieScreen(id: movie.id),
-          ),
-        );
-      },
+      onTap: onTap ??
+          () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MovieScreen(id: movie.id),
+              ),
+            );
+          },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: CachedNetworkImage(

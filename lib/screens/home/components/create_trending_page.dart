@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/screens/movie/movie_screen.dart';
 import 'package:flutter_mvvm_riverpod/widget/movie_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -18,6 +19,9 @@ class CreateTrendingPage extends StatefulWidget {
 
 class CreateTrendingPageState extends State<CreateTrendingPage> {
   int _currentPage = 0;
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
+
   @override
   void initState() {
     super.initState();
@@ -27,6 +31,15 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
     setState(() {
       _currentPage = i;
     });
+  }
+
+  void clickPage(int i) {
+    setCurrentPage(i);
+    _carouselController.animateToPage(
+      i,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -42,6 +55,7 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
             height: AppDimensions.isCurrentPageHeight,
             child: CarouselSlider.builder(
               itemCount: widget.trendingWeekList.length,
+              carouselController: _carouselController,
               itemBuilder: (context, index, realIndex) {
                 final movie = widget.trendingWeekList[index];
                 final isCurrentPage = index == _currentPage;
@@ -68,29 +82,40 @@ class CreateTrendingPageState extends State<CreateTrendingPage> {
   Widget _buildPageItem(
       {required Movie movie, required bool isCurrentPage, required int index}) {
     return Center(
-      child: GestureDetector(
-        onTap: () => setCurrentPage(index),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeInOut,
-          width: isCurrentPage
-              ? AppDimensions.isCurrentPageWidth
-              : AppDimensions.pageViewWidth,
-          height: isCurrentPage
-              ? AppDimensions.isCurrentPageHeight
-              : AppDimensions.pageViewHeight,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: black.withOpacity(0.25),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: MovieImage(movie: movie),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+        width: isCurrentPage
+            ? AppDimensions.isCurrentPageWidth
+            : AppDimensions.pageViewWidth,
+        height: isCurrentPage
+            ? AppDimensions.isCurrentPageHeight
+            : AppDimensions.pageViewHeight,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: black.withOpacity(0.25),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(10),
         ),
+        child: MovieImage(
+            movie: movie,
+            onTap: () => {
+                  if (index == _currentPage)
+                    {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MovieScreen(id: movie.id),
+                        ),
+                      )
+                    }
+                  else
+                    clickPage(index)
+                }),
       ),
     );
   }
