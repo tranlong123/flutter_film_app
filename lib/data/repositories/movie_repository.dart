@@ -1,8 +1,8 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie_colection/movie_colection.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie_detail/movie_detail.dart';
 import 'package:flutter_mvvm_riverpod/data/providers/api_client_providers.dart';
 import 'package:flutter_mvvm_riverpod/data/services/api/client/api_client.dart';
+import 'package:flutter_mvvm_riverpod/resources/key.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final movieRepositoryProvider = Provider<MovieRepository>((ref) {
@@ -12,7 +12,7 @@ final movieRepositoryProvider = Provider<MovieRepository>((ref) {
 
 class MovieRepository {
   final ApiClient _moviesApi;
-  final String _apikey = dotenv.env['API_KEY']!;
+  final String _apikey = apikey;
 
   MovieRepository(this._moviesApi);
 

@@ -45,4 +45,4 @@ app.*.map.json
 #flutter pub run build_runner build --delete-conflicting-outputs
 *.g.dart
 *.freezed.dart
-.env
+*.env
