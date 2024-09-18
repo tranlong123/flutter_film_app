@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/resources/styles/text_styles.dart';
 
-class CustomButtom extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final Color color;
 
-  const CustomButtom({
+  const CustomButton({
     super.key,
     required this.onPressed,
     required this.text,
@@ -40,12 +41,7 @@ class CustomButtom extends StatelessWidget {
         child: Text(
           text,
           maxLines: 1,
-          style: TextStyle(
-              color: black,
-              fontFamily: 'Roboto',
-              fontSize: AppDimensions.fontSize13,
-              fontWeight: FontWeight.w700,
-              height: 1.172),
+          style: AppTextStyles.customButton,
         ),
       ),
     );

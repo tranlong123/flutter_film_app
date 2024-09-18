@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/components/base_view/base_view.dart';
 import 'package:flutter_mvvm_riverpod/data/repositories/trending_repository.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/resources/styles/text_styles.dart';
 import 'package:flutter_mvvm_riverpod/widget/create_movie_list.dart';
 import 'package:flutter_mvvm_riverpod/screens/trending_list/trending_list_state.dart';
 import 'package:flutter_mvvm_riverpod/screens/trending_list/trending_list_view_model.dart';
@@ -91,10 +92,7 @@ class _TrendingListScreenState
             padding: EdgeInsets.only(left: AppDimensions.sizedBox20),
             child: Text(
               'Trending',
-              style: TextStyle(
-                  fontSize: AppDimensions.fontSize30,
-                  fontWeight: FontWeight.w700,
-                  height: AppDimensions.lineHeight),
+              style: AppTextStyles.trending,
             ),
           ),
         ],

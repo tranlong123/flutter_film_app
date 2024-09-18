@@ -4,9 +4,10 @@ import 'package:flutter_mvvm_riverpod/components/base_view/base_view.dart';
 import 'package:flutter_mvvm_riverpod/data/repositories/movie_repository.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/resources/styles/text_styles.dart';
 import 'package:flutter_mvvm_riverpod/screens/movie/components/cate_box.dart';
 import 'package:flutter_mvvm_riverpod/screens/movie/components/create_may_be_like_list.dart';
-import 'package:flutter_mvvm_riverpod/screens/movie/components/custom_buttom.dart';
+import 'package:flutter_mvvm_riverpod/screens/movie/components/custom_button.dart';
 import 'package:flutter_mvvm_riverpod/screens/movie/movie_screen_state.dart';
 import 'package:flutter_mvvm_riverpod/screens/movie/movie_view_model.dart';
 import 'package:flutter_mvvm_riverpod/widget/item_overview.dart';
@@ -144,15 +145,8 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
         ),
         Padding(
           padding: EdgeInsets.only(left: AppDimensions.sizedBox19),
-          child: Text(
-            state.movieDetail.releaseDate,
-            style: TextStyle(
-                color: black,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w700,
-                fontSize: AppDimensions.fontSize10,
-                height: 1.172),
-          ),
+          child: Text(state.movieDetail.releaseDate,
+              style: AppTextStyles.releaseDate),
         ),
         SizedBox(
           height: AppDimensions.sizedBox9,
@@ -214,7 +208,7 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
         width: AppDimensions.sizedBox188,
         child: Row(
           children: [
-            CustomButtom(
+            CustomButton(
               text: 'Watch',
               // ignore: avoid_print
               onPressed: () => print('Button pressed'),
@@ -223,7 +217,7 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
             const SizedBox(
               width: 5,
             ),
-            CustomButtom(
+            CustomButton(
               text: 'Download',
               // ignore: avoid_print
               onPressed: () => print('Button pressed'),
@@ -237,15 +231,7 @@ class _MovieScreenState extends BaseViewState<MovieScreen, MovieViewModel> {
     return Padding(
       padding: EdgeInsets.only(
           left: AppDimensions.dotSize, bottom: AppDimensions.sizedBox23),
-      child: Text(
-        'May be you like',
-        style: TextStyle(
-          color: black,
-          fontSize: AppDimensions.fontSize20,
-          fontWeight: FontWeight.w700,
-          height: 1.172,
-        ),
-      ),
+      child: Text('May be you like', style: AppTextStyles.mayBeLike),
     );
   }
 }

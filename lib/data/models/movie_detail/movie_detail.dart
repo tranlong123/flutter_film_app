@@ -7,7 +7,7 @@ part 'movie_detail.g.dart';
 class MovieDetail with _$MovieDetail {
   const factory MovieDetail({
     required bool adult,
-    required String backdropPath,
+    String? backdropPath,
     BelongsToCollection? belongsToCollection,
     int? budget,
     required List<Genre> genres,
@@ -19,7 +19,7 @@ class MovieDetail with _$MovieDetail {
     String? originalTitle,
     required String overview,
     double? popularity,
-    required String posterPath,
+    String? posterPath,
     List<ProductionCompany>? productionCompanies,
     List<ProductionCountry>? productionCountries,
     required String releaseDate,

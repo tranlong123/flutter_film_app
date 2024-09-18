@@ -12,8 +12,6 @@ mixin BaseViewMixin {
 
   Color? get backgroundColor => bgColor;
 
-  bool get onWillPop => true;
-
   Widget buildBody(BuildContext context);
 
   PreferredSizeWidget? buildAppBar(BuildContext context) => null;

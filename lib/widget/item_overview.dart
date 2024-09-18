@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/resources/styles/text_styles.dart';
 
 class ItemOverview extends StatelessWidget {
   final String text;
@@ -16,13 +16,7 @@ class ItemOverview extends StatelessWidget {
         text,
         overflow: TextOverflow.ellipsis,
         maxLines: maxLines ?? 5,
-        style: TextStyle(
-            fontFamily: 'Roboto',
-            color: black,
-            fontWeight: FontWeight.w400,
-            fontSize: AppDimensions.fontSize10,
-            height: 1.172
-            ),
+        style: AppTextStyles.itemOverview,
       ),
     );
   }

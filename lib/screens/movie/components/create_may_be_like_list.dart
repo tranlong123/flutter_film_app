@@ -26,6 +26,7 @@ class CreateMayBeLikeList extends StatelessWidget {
             childAspectRatio:
                 100 / 160, // Tỷ lệ chiều rộng/chiều cao của mỗi mục
           ),
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: movies.length,
           itemBuilder: (context, index) {
             final movie = movies[index];

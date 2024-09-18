@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/resources/styles/text_styles.dart';
 
 class ItemVote extends StatefulWidget {
   final int voteCount;
@@ -34,19 +35,12 @@ class _ItemVoteState extends State<ItemVote> {
         children: [
           _buildHeartIcon(ontap: _toggleVote, isVote: isVote),
           SizedBox(
-            // width: 44,
-            // AppDimensions.sizedBox44,
             height: AppDimensions.sizedBox18,
             child: Text(
               '$_voteCount',
               maxLines: 1, // Giới hạn chỉ hiển thị 1 dòng
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: black,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w600,
-                height: 1.172,
-              ),
+              style: AppTextStyles.itemVote,
             ),
           ),
         ],

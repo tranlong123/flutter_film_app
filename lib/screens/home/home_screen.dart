@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/components/base_view/base_view.dart';
 import 'package:flutter_mvvm_riverpod/data/repositories/trending_repository.dart';
-import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/resources/styles/text_styles.dart';
 import 'package:flutter_mvvm_riverpod/screens/home/components/create_home_top.dart';
 import 'package:flutter_mvvm_riverpod/screens/home/components/create_list_of_day.dart';
 import 'package:flutter_mvvm_riverpod/screens/home/components/create_trending_page.dart';
@@ -69,13 +69,7 @@ class _HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
             left: AppDimensions.sizedBox16, bottom: AppDimensions.sizedBox9),
         child: Text(
           'List Of Day',
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: AppDimensions.fontSize20,
-            fontWeight: FontWeight.w700,
-            height: 23.44 / 20, // line-height / font-size
-            color: black,
-          ),
+          style: AppTextStyles.listOfDay
         ),
       ),
     );

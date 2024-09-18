@@ -19,3 +19,4 @@ const textInput = Color(0xFFaeaeae);
 const cursorColor = Color(0xFFd8ab0b);
 
 const fullyTransparent = Colors.transparent;
+const blueFF5FC1C7 = Color(0xFF5FC1C7);

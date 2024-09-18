@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/resources/styles/text_styles.dart';
 
 class CateBox extends StatelessWidget {
   final String cate;
@@ -21,12 +22,7 @@ class CateBox extends StatelessWidget {
           children: [
             Text(
               cate,
-              style: TextStyle(
-                color: black,
-                fontSize: AppDimensions.fontSize10,
-                height: 1.172,
-                fontWeight: FontWeight.w700
-              ),
+              style: AppTextStyles.cateBox
             ),
           ],
         ),

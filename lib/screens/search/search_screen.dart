@@ -3,6 +3,7 @@ import 'package:flutter_mvvm_riverpod/components/base_view/base_view.dart';
 import 'package:flutter_mvvm_riverpod/data/repositories/search_repository.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/colors.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
+import 'package:flutter_mvvm_riverpod/resources/styles/text_styles.dart';
 import 'package:flutter_mvvm_riverpod/screens/search/search_state.dart';
 import 'package:flutter_mvvm_riverpod/screens/search/search_view_model.dart';
 import 'package:flutter_mvvm_riverpod/widget/create_movie_list.dart';
@@ -28,10 +29,16 @@ class SearchScreen extends BaseView {
 class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
   late ScrollController scrollController;
   @override
-  Future<void> onInitState() async {
-    super.onInitState();
+  void initState() {
+    super.initState();
     scrollController = ScrollController();
     scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  Future<void> onInitState() async {
+    super.onInitState();
+
     await viewModel.initData();
   }
 
@@ -64,13 +71,26 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
   Widget buildBody(BuildContext context) {
     return Stack(children: [
       _buildSearchBar(),
-      CreateMovieList(
-          movies: state.searchList,
-          scrollController: scrollController,
-          isLoadingMore: state.isLoadingMore,
-          refreshMovies: viewModel.refreshMovies),
+      _buildMovieList(),
       if (state.showScrollTopButton) ScrollTopButton(scrollToTop: scrollToTop)
     ]);
+  }
+
+  Widget _buildMovieList() {
+    if (state.query == "") {
+      return const Center(
+        child: Text('what movie do you want to find'),
+      );
+    }
+    return CreateMovieList(
+        movies: state.searchList,
+        scrollController: scrollController,
+        isLoadingMore: state.isLoadingMore,
+        refreshMovies: viewModel.refreshMovies);
+  }
+
+  void _onTextChanged(String text) {
+    viewModel.searchMovie(query: text);
   }
 
   Widget _buildSearchBar() {
@@ -89,9 +109,7 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
                 decoration: BoxDecoration(
                     color: white, borderRadius: BorderRadius.circular(25)),
                 child: TextField(
-                  onChanged: (text) {
-                    viewModel.searchMovie(query: text);
-                  },
+                  onChanged: _onTextChanged,
                   cursorHeight: AppDimensions.sizedBox16,
                   cursorColor: cursorColor,
                   textAlignVertical: TextAlignVertical.center,
@@ -102,13 +120,7 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
                         vertical: AppDimensions.contentPaddingVertical,
                         horizontal: AppDimensions.sizedBox24),
                   ),
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w700,
-                    height: 1.1717,
-                    fontSize: AppDimensions.fontSize18,
-                    color: textInput,
-                  ),
+                  style: AppTextStyles.searchInput,
                 ),
               ),
             ),
