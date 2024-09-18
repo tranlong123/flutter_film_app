@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
 import 'package:flutter_mvvm_riverpod/screens/movie/movie_screen.dart';
+import 'package:flutter_mvvm_riverpod/widget/movie_image.dart';
 
 class CreateMayBeLikeList extends StatelessWidget {
   final List<Movie> movies;
@@ -31,26 +32,10 @@ class CreateMayBeLikeList extends StatelessWidget {
   }
 
   Widget _buildMovieGridItem(BuildContext context, {required Movie movie}) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MovieScreen(id: movie.id),
-          ),
-        );
-      },
-      child: Container(
-        width: AppDimensions.gridItemWidth,
-        height: AppDimensions.gridItemHeight,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(5),
-          child: CachedNetworkImage(
-            imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
+    return MovieImage(
+      movie: movie,
+      width: AppDimensions.gridItemWidth,
+      height: AppDimensions.gridItemHeight,
     );
   }
 }
