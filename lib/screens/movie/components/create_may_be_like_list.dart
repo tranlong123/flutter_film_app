@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm_riverpod/data/models/movie/movie.dart';
 import 'package:flutter_mvvm_riverpod/resources/styles/dimensions.dart';
-import 'package:flutter_mvvm_riverpod/screens/movie/movie_screen.dart';
 import 'package:flutter_mvvm_riverpod/widget/movie_image.dart';
 
 class CreateMayBeLikeList extends StatelessWidget {

@@ -95,6 +95,7 @@ class _SearchScreenState extends BaseViewState<SearchScreen, SearchViewModel> {
                 decoration: BoxDecoration(
                     color: white, borderRadius: BorderRadius.circular(25)),
                 child: TextField(
+                  autofocus: false,
                   onChanged: _onTextChanged,
                   cursorHeight: AppDimensions.sizedBox16,
                   cursorColor: cursorColor,

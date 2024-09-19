@@ -31,12 +31,13 @@ class CreateMovieList extends StatelessWidget {
           child: RefreshIndicator(
               onRefresh: refreshMovies,
               backgroundColor: fullyTransparent,
-              child:_buildMovieList()),
+              child: _buildMovieList()),
         ),
       ],
     );
   }
-  Widget _buildMovieList(){
+
+  Widget _buildMovieList() {
     return ListView.builder(
       controller: scrollController,
       itemCount:
@@ -55,9 +56,11 @@ class CreateMovieList extends StatelessWidget {
       },
     );
   }
+
   Widget _buildItem(context, {required Movie movie}) {
     return GestureDetector(
       onTap: () {
+        FocusScope.of(context).unfocus();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -73,7 +76,7 @@ class CreateMovieList extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildItemImage(item: movie.posterPath??""),
+                _buildItemImage(item: movie.posterPath ?? ""),
                 _buildItemDescription(
                     title: movie.title,
                     vote: movie.voteAverage,
